@@ -1,48 +1,38 @@
-<%-- 共通テンプレート --%>
+<%-- 共通レイアウト（common/base.jsp） --%>
+<%-- 各画面から c:import で呼び出し、title / scripts / content を受け取る --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Bootstrap CSS -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-	crossorigin="anonymous">
-<title>${param.title}</title>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-${param.scripts}
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>${param.title}</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-	<div id="wrapper" class="container">
-		<header
-			class="d-flex flex-wrap justify-content-center py-3 px-5 mb-4 border-bottom border-2 bg-primary bg-opacity-10 bg-gradient">
-			<c:import url="/common/header.jsp" />
-		</header>
-
-		<div class="row justify-content-center">
-			<c:choose>
-				<%-- ログイン済みの場合 --%>
-				<c:when test="${user.isAuthenticated()}">
-					<nav class="col-3" style="height:40rem;">
-						<c:import url="/common/navigation.jsp" />
-					</nav>
-					<main class="col-9 border-start"> ${param.content} </main>
-				</c:when>
-				<%-- 未ログインの場合 --%>
-				<c:otherwise>
-					<main class="col-8"> ${param.content} </main>
-				</c:otherwise>
-			</c:choose>
+<body class="bg-light">
+	<!-- ヘッダー -->
+	<header class="bg-white border-bottom">
+		<div class="container py-3 d-flex justify-content-between align-items-center">
+			<h1 class="h4 m-0 text-success-emphasis">認知症予防トレーニングアプリ</h1>
+			<!--<span class="text-secondary small">いつまでも いきいきとした毎日を</span>-->
 		</div>
-		<footer class="py-2 my-4 bg-dark bg-opacity-10 border-top border-3 align-bottom">
-			<c:import url="/common/footer.jsp" />
-		</footer>
+	</header>
 
-	</div>
+	<!-- 本文 -->
+	<main class="container py-4">
+		${param.content}
+	</main>
+
+	<!-- フッター -->
+	<footer class="py-3 text-center text-secondary small">
+		&copy; 2024 認知症予防トレーニングアプリ
+	</footer>
+
+	<!-- jQuery と Bootstrap（各画面の scripts より先に読み込む） -->
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	${param.scripts}
 </body>
 </html>
