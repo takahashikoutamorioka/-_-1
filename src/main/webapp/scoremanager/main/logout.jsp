@@ -28,22 +28,27 @@
                                 ログアウトしますか？
                             </p>
 
-                            <%-- ログアウトボタン --%>
-                            <form action="${pageContext.request.contextPath}/LogoutAction"
-                                  method="post">
+                            <%-- ボタンを横並びに配置 --%>
+                            <div class="d-flex justify-content-center gap-3">
 
-                                <button type="submit"
-                                    class="btn btn-danger w-100 mb-3">
-                                    ログアウトする
-                                </button>
+                                <%-- ログアウトボタン --%>
+                                <form action="${pageContext.request.contextPath}/LogoutAction"
+                                      method="post">
 
-                            </form>
+                                    <button type="submit"
+                                        class="btn btn-primary">
+                                        ログアウトする
+                                    </button>
 
-                            <%-- キャンセルボタン --%>
-                            <a href="${pageContext.request.contextPath}/top.jsp"
-                               class="btn btn-outline-secondary w-100">
-                                キャンセル
-                            </a>
+                                </form>
+
+                                <%-- キャンセルボタン --%>
+                                <a href="${pageContext.request.contextPath}/top.jsp"
+                                   class="btn btn-outline-secondary">
+                                    キャンセル
+                                </a>
+
+                            </div>
 
                         </div>
                     </div>
