@@ -87,6 +87,11 @@
                 </c:when>
 
                 <c:when test="${not empty f4}">
+                	<c:if test="${not empty students and empty tests}">
+                        <div class="fw-bold ms-3 mt-3" style="color:black;">
+                            学生情報が存在しませんでした。
+                        </div>
+                    </c:if>
 				    <h5 class="px-4 mb-3">氏名：${students[0].name}（${students[0].no}）</h5>
 				
 				    <table class="table table-hover mt-3">

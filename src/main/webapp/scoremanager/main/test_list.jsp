@@ -50,13 +50,15 @@
                         </div>
                     </div>
                 </form>
+
+                <%-- ① 入学年度・クラス・科目が未選択の場合 --%>
                 <c:if test="${f4 == null or f4 == ''}">
-				            <c:if test="${f1 == '0' or f2 == '0' or f3 == '0'}">
-				                <div class="fw-bold ms-3 mt-3" style="color:red;">
-				                    入学年度・クラス・科目を入力してください
-				                </div>
-				            </c:if>
-		        </c:if>
+                    <c:if test="${f1 == '0' or f2 == '0' or f3 == '0'}">
+                        <div class="fw-bold ms-3 mt-3" style="color:orange;">
+                            入学年度とクラスと科目を選択してください
+                        </div>
+                    </c:if>
+                </c:if>
 
                 <!-- 学生番号検索フォーム -->
                 <form action="TestListStudentExecute.action" method="get">
@@ -73,50 +75,51 @@
                         </div>
                     </div>
                 </form>
+                <div class="fw-bold ms-3 mt-3" style="color:blue;">
+				    科目情報を選択または学生情報を入力して検索ボタンをクリックしてください
+				</div>
 
                 <!-- ▼ 検索結果 -->
                 <c:choose>
 
-				    <c:when test="${not empty students}">
-				        <div class="mx-3 mt-4">
-				            <h5>検索結果</h5>
-				            <table class="table table-bordered mt-3">
-				                <thead class="table-light">
-				                    <tr>
-				                        <th>学生番号</th>
-				                        <th>氏名</th>
-				                        <th>科目</th>
-				                        <th>回</th>
-				                        <th>点数</th>
-				                    </tr>
-				                </thead>
-				                <tbody>
-				                    <c:forEach var="t" items="${tests}">
-				                        <tr>
-				                            <td>${t.student.no}</td>
-				                            <td>${t.student.name}</td>
-				                            <td>${t.subject.name}</td>
-				                            <td>${t.no}</td>
-				                            <td>${t.point}</td>
-				                        </tr>
-				                    </c:forEach>
-				                </tbody>
-				            </table>
-				        </div>
-				    </c:when>
-				
-				    <c:otherwise>
-				
-				        <c:if test="${not empty f4 and empty students}">
-				            <div class="fw-bold ms-3 mt-3" style="color:black;">
-				                学生情報が存在しませんでした。
-				            </div>
-				        </c:if>
-				
-				    </c:otherwise>
-				
-				</c:choose>
+                    <%-- 検索結果あり --%>
+                    <c:when test="${not empty students}">
+                        <div class="mx-3 mt-4">
+                            <h5>検索結果</h5>
+                            <table class="table table-bordered mt-3">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>学生番号</th>
+                                        <th>氏名</th>
+                                        <th>科目</th>
+                                        <th>回</th>
+                                        <th>点数</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach var="t" items="${tests}">
+                                        <tr>
+                                            <td>${t.student.no}</td>
+                                            <td>${t.student.name}</td>
+                                            <td>${t.subject.name}</td>
+                                            <td>${t.no}</td>
+                                            <td>${t.point}</td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
+                    </c:when>
 
+                    <%-- 検索結果なし --%>
+                    <c:otherwise>
+
+					   
+					
+					</c:otherwise>
+
+
+                </c:choose>
 
             </section>
         </div>
