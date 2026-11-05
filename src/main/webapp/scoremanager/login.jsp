@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="jakarta.tags.functions"%>
 <c:import url="/common/base.jsp">
 	<c:param name="title">
-		認知症予防トレーニングアプリ｜ログイン
+		認知症予防トレーニングアプリ
 	</c:param>
 
 	<c:param name="scripts">
