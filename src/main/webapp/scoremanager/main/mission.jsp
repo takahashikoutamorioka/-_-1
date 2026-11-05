@@ -6,7 +6,7 @@
 <c:import url="/common/base.jsp">
 
 	<c:param name="title">
-		認知症予防トレーニングアプリ｜ミッション
+		認知症予防トレーニングアプリ
 	</c:param>
 
 	<c:param name="content">
