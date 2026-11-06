@@ -1,4 +1,3 @@
-<%-- 新規登録 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
@@ -7,128 +6,171 @@
 <c:import url="/common/base.jsp">
 
 	<c:param name="title">
-		認知症予防トレーニングアプリ
+		認知症予防トレーニングアプリ｜新規登録
 	</c:param>
 
 	<c:param name="content">
 
-		<section class="w-75 text-center m-auto border pb-4">
+		<section class="w-75 text-center m-auto border pb-3">
 
 			<form action="Register.action" method="post">
 
 				<div id="wrap_box">
 
-					<h2 class="h3 mb-2 fw-bold bg-secondary bg-opacity-10 py-2">
+					<h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2">
 						新規登録
 					</h2>
 
-					<p class="text-secondary mb-4">
-						アカウントを作成して、はじめましょう
+					<p class="text-secondary">
+						アカウント情報を入力してください
 					</p>
 
-					<!-- 名前 -->
-					<div class="mx-5 mb-3 text-start">
-						<label class="form-label fw-bold">名前</label>
+					<c:if test="${not empty errors}">
+
+						<div class="alert alert-danger text-start mx-5">
+
+							<ul class="mb-0">
+
+								<c:forEach var="error"
+									items="${errors}">
+
+									<li>
+										${fn:escapeXml(error)}
+									</li>
+
+								</c:forEach>
+
+							</ul>
+
+						</div>
+
+					</c:if>
+
+					<!-- ユーザー名 -->
+
+					<div class="form-floating mx-5 mb-3">
 
 						<input
 							type="text"
-							name="name"
-							class="form-control ${not empty nameError ? 'is-invalid' : ''}"
-							placeholder="名前を入力してください"
-							value="${fn:escapeXml(name)}">
+							class="form-control px-5 fs-5"
+							id="userName-input"
+							name="userName"
+							maxlength="50"
+							placeholder="ユーザー名"
+							value="${fn:escapeXml(userName)}">
 
-						<c:if test="${not empty nameError}">
-							<div class="text-danger small mt-1">
-								${fn:escapeXml(nameError)}
-							</div>
-						</c:if>
-					</div>
+						<label for="userName-input">
 
-					<!-- メールアドレス -->
-					<div class="mx-5 mb-3 text-start">
-						<label class="form-label fw-bold">メールアドレス</label>
+							ユーザー名
 
-						<input
-							type="email"
-							name="mail"
-							class="form-control ${not empty mailError ? 'is-invalid' : ''}"
-							placeholder="メールアドレスを入力してください"
-							value="${fn:escapeXml(mail)}">
+						</label>
 
-						<c:if test="${not empty mailError}">
-							<div class="text-danger small mt-1">
-								${fn:escapeXml(mailError)}
-							</div>
-						</c:if>
-					</div>
-
-					<!-- 電話番号 -->
-					<div class="mx-5 mb-3 text-start">
-						<label class="form-label fw-bold">電話番号</label>
-
-						<input
-							type="text"
-							name="tel"
-							class="form-control ${not empty telError ? 'is-invalid' : ''}"
-							placeholder="例：09012345678"
-							value="${fn:escapeXml(tel)}">
-
-						<c:if test="${not empty telError}">
-							<div class="text-danger small mt-1">
-								${fn:escapeXml(telError)}
-							</div>
-						</c:if>
 					</div>
 
 					<!-- パスワード -->
-					<div class="mx-5 mb-3 text-start">
-						<label class="form-label fw-bold">パスワード</label>
+
+					<div class="form-floating mx-5 mb-3">
 
 						<input
 							type="password"
+							class="form-control px-5 fs-5"
+							id="password-input"
 							name="password"
-							class="form-control ${not empty passwordError ? 'is-invalid' : ''}"
-							placeholder="半角英数字8文字以上">
+							maxlength="20"
+							placeholder="パスワード">
 
-						<c:if test="${not empty passwordError}">
-							<div class="text-danger small mt-1">
-								${fn:escapeXml(passwordError)}
-							</div>
-						</c:if>
+						<label for="password-input">
+
+							パスワード
+
+						</label>
+
 					</div>
 
-					<!-- パスワード確認 -->
-					<div class="mx-5 mb-4 text-start">
-						<label class="form-label fw-bold">パスワード確認</label>
+					<!-- 確認用パスワード -->
+
+					<div class="form-floating mx-5 mb-3">
 
 						<input
 							type="password"
+							class="form-control px-5 fs-5"
+							id="confirmPassword-input"
 							name="confirmPassword"
-							class="form-control ${not empty confirmPasswordError ? 'is-invalid' : ''}"
-							placeholder="もう一度パスワードを入力してください">
+							maxlength="20"
+							placeholder="確認用パスワード">
 
-						<c:if test="${not empty confirmPasswordError}">
-							<div class="text-danger small mt-1">
-								${fn:escapeXml(confirmPasswordError)}
-							</div>
-						</c:if>
+						<label for="confirmPassword-input">
+
+							確認用パスワード
+
+						</label>
+
+					</div>
+
+					<!-- メールアドレス -->
+
+					<div class="form-floating mx-5 mb-3">
+
+						<input
+							type="email"
+							class="form-control px-5 fs-5"
+							id="email-input"
+							name="email"
+							maxlength="254"
+							placeholder="メールアドレス"
+							value="${fn:escapeXml(email)}">
+
+						<label for="email-input">
+
+							メールアドレス
+
+						</label>
+
+					</div>
+
+					<!-- 電話番号 -->
+
+					<div class="form-floating mx-5 mb-3">
+
+						<input
+							type="text"
+							class="form-control px-5 fs-5"
+							id="tel-input"
+							name="tel"
+							maxlength="15"
+							placeholder="電話番号"
+							value="${fn:escapeXml(tel)}">
+
+						<label for="tel-input">
+
+							電話番号
+
+						</label>
+
 					</div>
 
 					<!-- ボタン -->
-					<div class="row mx-5">
+
+					<div class="row mx-5 mt-4">
 
 						<div class="col-md-6 mb-2">
+
 							<input
+								class="btn btn-primary w-100"
 								type="submit"
-								value="登録する"
-								class="btn btn-primary w-100">
+								value="登録">
+
 						</div>
 
 						<div class="col-md-6 mb-2">
-							<a href="loginForm.jsp"
+
+							<a href="../login.jsp"
 								class="btn btn-secondary w-100">
+
 								キャンセル
+
 							</a>
+
 						</div>
 
 					</div>

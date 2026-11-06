@@ -37,7 +37,7 @@
         <!-- No.4 脳年齢テスト(イベント10) -->
         <div class="col-12 col-md-4">
           <a class="d-block p-3 rounded bg-success bg-opacity-10 text-decoration-none text-reset h-100"
-             href="brainAgeTest.jsp">
+             href="NonenreiStart.jsp">
             <span class="d-block fs-5 fw-bold mb-2">脳年齢テスト</span>
             <span class="d-block small text-muted">今の脳年齢を確認</span>
           </a>
