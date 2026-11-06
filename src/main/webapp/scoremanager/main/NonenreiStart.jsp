@@ -1,119 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>脳年齢テスト | 認知症予防トレーニングアプリ</title>
-<style>
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    min-height: 100vh;
-    font-family: "Meiryo", "Hiragino Kaku Gothic ProN", sans-serif;
-    color: #1f3a33;
-    background: linear-gradient(to bottom, #d9ecf5, #e4f3e4);
-    display: flex;
-    flex-direction: column;
-  }
-  /* ヘッダー */
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 24px;
-    background: rgba(255, 255, 255, 0.7);
-  }
-  .app-name { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: bold; }
-  .app-name .logo {
-    width: 32px; height: 32px; border-radius: 50%;
-    background: #2e9e74; color: #fff;
-    display: flex; align-items: center; justify-content: center; font-size: 18px;
-  }
-  .user-area { display: flex; align-items: center; gap: 16px; font-size: 14px; }
-  .logout-btn {
-    padding: 10px 28px; font-size: 18px; font-weight: bold;
-    color: #222; background: #e3e3e6; border: none; border-radius: 6px; text-decoration: none;
-  }
-  .logout-btn:hover { background: #d3d3d8; }
 
-  /* メイン */
-  main { flex: 1; display: flex; justify-content: center; padding: 24px 16px; }
-  .card {
-    width: 100%; max-width: 760px;
-    padding: 32px 36px 36px;
-    background: #fff; border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
-    align-self: flex-start;
-  }
-  h2 { margin: 0 0 8px; text-align: center; font-size: 22px; }
-  .lead { margin: 0 0 20px; text-align: center; font-size: 14px; }
+<c:import url="/common/base.jsp">
+  <c:param name="title">
+    脳年齢テスト | 認知症予防トレーニングアプリ
+  </c:param>
 
-  /* No.1 説明文 */
-  .notice {
-    margin-bottom: 18px; padding: 16px 20px;
-    background: #eaf5ee; border-radius: 8px;
-    font-size: 14px; line-height: 1.8;
-  }
-  .notice p { margin: 0; }
+  <c:param name="scripts"></c:param>
 
-  /* No.2 開始ボタン / No.3 戻るリンク */
-  .actions { display: flex; gap: 12px; }
-  .actions form { flex: 1; display: flex; }
-  .actions .start-btn, .actions .back {
-    flex: 1; padding: 14px; font-size: 15px; text-align: center;
-    border: none; border-radius: 6px; text-decoration: none; cursor: pointer;
-  }
-  .actions .start-btn { background: #1f64d8; color: #fff; font-weight: bold; }
-  .actions .start-btn:hover { background: #1a55b8; }
-  .actions .back { flex: 1; background: #e3e3e6; color: #333; }
-  .actions .back:hover { background: #d3d3d8; }
+  <c:param name="content">
+    <section class="me-4">
+      <h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4 text-center">脳年齢テスト</h2>
+      <p class="text-center mb-4">問題に答えて、今の脳年齢を確認しましょう</p>
 
-  footer { padding: 16px; text-align: center; font-size: 12px; color: #55706a; }
+      <div class="px-4">
+        <!-- No.1 説明文 -->
+        <div class="p-3 mb-4 rounded bg-success bg-opacity-10">
+          <p class="mb-1">全部の問題に回答すると、脳年齢が分かります。</p>
+          <p class="mb-0">途中で終了した場合は、結果は残りません。</p>
+        </div>
 
-  @media (max-width: 640px) {
-    .actions { flex-direction: column; }
-  }
-</style>
-</head>
-<body>
+        <div class="d-flex flex-column flex-md-row gap-3">
+          <!-- No.2 テストを開始する -->
+          <form class="flex-fill d-flex"
+                action="${pageContext.request.contextPath}/scoremanager/main/BrainAgeTestStart.action"
+                method="post">
+            <button type="submit" class="btn btn-primary flex-fill py-3 fw-bold">テストを開始する</button>
+          </form>
 
-<header>
-  <div class="app-name">
-    <span class="logo">&#10047;</span>
-    <span>認知症予防トレーニングアプリ</span>
-  </div>
-  <div class="user-area">
-    <span><c:out value="${sessionScope.account.name}" />さん</span>
-    <a class="logout-btn" href="${pageContext.request.contextPath}/scoremanager/main/Logout.action">ログアウト</a>
-  </div>
-</header>
-
-<main>
-  <div class="card">
-    <h2>脳年齢テスト</h2>
-    <p class="lead">問題に答えて、今の脳年齢を確認しましょう</p>
-
-    <!-- No.1 説明文 -->
-    <div class="notice">
-      <p>全部の問題に回答すると、脳年齢が分かります。</p>
-      <p>途中で終了した場合は、結果は残りません。</p>
-    </div>
-
-    <div class="actions">
-      <!-- No.2 テストを開始する -->
-      <form action="${pageContext.request.contextPath}/scoremanager/main/BrainAgeTestStart.action" method="post">
-        <button type="submit" class="start-btn">テストを開始する</button>
-      </form>
-      <!-- No.3 トップ画面に戻る -->
-      <a class="back" href="${pageContext.request.contextPath}/scoremanager/main/top.jsp">トップ画面に戻る</a>
-    </div>
-  </div>
-</main>
-
-<footer>&copy; 2024 認知症予防トレーニングアプリ</footer>
-
-</body>
-</html>
+          <!-- No.3 トップ画面に戻る -->
+          <a class="btn btn-secondary flex-fill py-3"
+             href="${pageContext.request.contextPath}/scoremanager/main/top.jsp">トップ画面に戻る</a>
+        </div>
+      </div>
+    </section>
+  </c:param>
+</c:import>
