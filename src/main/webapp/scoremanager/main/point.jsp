@@ -31,7 +31,7 @@
                             <h3 class="display-5 fw-bold text-success-emphasis mb-4">
                                 <c:choose>
                                     <c:when test="${not empty pointBean}">
-                                        <c:out value="${pointBean.points}" /> pt
+                                        <c:out value="${pointBean.pointCount}" /> pt
                                     </c:when>
                                     <c:otherwise>
                                         0 pt
