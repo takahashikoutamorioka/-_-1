@@ -5,7 +5,7 @@ import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
 
-import bean.AccountBean;
+import bean.account;
 import dao.AccountDAO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -34,7 +34,7 @@ public class LoginAction extends Action {
 
 		// アカウントを検索する（新規登録と同じ方法でハッシュ化したパスワードで照合）
 		AccountDAO dao = new AccountDAO();
-		AccountBean account = dao.findByNameAndPassword(name.trim(), hashPassword(password));
+		account account = dao.findByNameAndPassword(name.trim(), hashPassword(password));
 
 		// 一致しない場合
 		if (account == null) {
