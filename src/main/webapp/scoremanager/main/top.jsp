@@ -19,7 +19,7 @@
         <!-- No.2 運動記録(イベント6) -->
         <div class="col-12 col-md-4">
           <a class="d-block p-3 rounded bg-success bg-opacity-10 text-decoration-none text-reset h-100"
-             href="${pageContext.request.contextPath}/scoremanager/main/ExerciseRecord.action">
+             href="exerciseRecord.jsp">
             <span class="d-block fs-5 fw-bold mb-2">運動記録</span>
             <span class="d-block small text-muted">歩行距離を記録する</span>
           </a>
@@ -28,7 +28,7 @@
         <!-- No.3 脳トレ(イベント7) -->
         <div class="col-12 col-md-4">
           <a class="d-block p-3 rounded bg-success bg-opacity-10 text-decoration-none text-reset h-100"
-             href="${pageContext.request.contextPath}/scoremanager/main/BrainTraining.action">
+             href="brainTraining.jsp">
             <span class="d-block fs-5 fw-bold mb-2">脳トレ</span>
             <span class="d-block small text-muted">4種類から選んで挑戦</span>
           </a>
@@ -37,7 +37,7 @@
         <!-- No.4 脳年齢テスト(イベント10) -->
         <div class="col-12 col-md-4">
           <a class="d-block p-3 rounded bg-success bg-opacity-10 text-decoration-none text-reset h-100"
-             href="${pageContext.request.contextPath}/scoremanager/main/BrainAgeTest.action">
+             href="brainAgeTest.jsp">
             <span class="d-block fs-5 fw-bold mb-2">脳年齢テスト</span>
             <span class="d-block small text-muted">今の脳年齢を確認</span>
           </a>
@@ -46,7 +46,7 @@
         <!-- No.5 ミッション(イベント12) -->
         <div class="col-12 col-md-4">
           <a class="d-block p-3 rounded bg-success bg-opacity-10 text-decoration-none text-reset h-100"
-             href="${pageContext.request.contextPath}/scoremanager/main/mission.jsp">
+             href="mission.jsp">
             <span class="d-block fs-5 fw-bold mb-2">ミッション</span>
             <span class="d-block small text-muted">今日の目標を確認</span>
           </a>
@@ -55,7 +55,7 @@
         <!-- No.6 ポイント(イベント14) -->
         <div class="col-12 col-md-4">
           <a class="d-block p-3 rounded bg-success bg-opacity-10 text-decoration-none text-reset h-100"
-             href="${pageContext.request.contextPath}/scoremanager/main/Point.action">
+             href="point.jsp">
             <span class="d-block fs-5 fw-bold mb-2">ポイント</span>
             <span class="d-block small text-muted">ポイントの確認と交換</span>
           </a>
@@ -64,7 +64,7 @@
         <!-- No.7 アカウント情報(イベント17) -->
         <div class="col-12 col-md-4">
           <a class="d-block p-3 rounded bg-success bg-opacity-10 text-decoration-none text-reset h-100"
-             href="${pageContext.request.contextPath}/scoremanager/main/AccountInfo.action">
+             href="accountInfo.jsp">
             <span class="d-block fs-5 fw-bold mb-2">アカウント情報</span>
             <span class="d-block small text-muted">登録内容の確認と変更</span>
           </a>
