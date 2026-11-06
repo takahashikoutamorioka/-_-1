@@ -43,8 +43,7 @@ public class ScoreDAO extends DAO {
 			int accountId)
 			throws Exception {
 
-		List<score> list =
-				new ArrayList<>();
+		List<score> list = new ArrayList<>();
 
 		Connection con = getConnection();
 
