@@ -12,4 +12,4 @@ public class PointAction extends Action {
 
         req.getRequestDispatcher("point.jsp").forward(req, res);
     }
-}
+} 
