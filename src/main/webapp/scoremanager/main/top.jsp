@@ -28,7 +28,7 @@
         <!-- No.3 脳トレ(イベント7) -->
         <div class="col-12 col-md-4">
           <a class="d-block p-3 rounded bg-success bg-opacity-10 text-decoration-none text-reset h-100"
-             href="brainTraining.action">
+             href="BrainTraining.action">
             <span class="d-block fs-5 fw-bold mb-2">脳トレ</span>
             <span class="d-block small text-muted">4種類から選んで挑戦</span>
           </a>
@@ -46,7 +46,7 @@
         <!-- No.5 ミッション(イベント12) -->
         <div class="col-12 col-md-4">
           <a class="d-block p-3 rounded bg-success bg-opacity-10 text-decoration-none text-reset h-100"
-             href="mission.action">
+             href="Mission.action">
             <span class="d-block fs-5 fw-bold mb-2">ミッション</span>
             <span class="d-block small text-muted">今日の目標を確認</span>
           </a>
@@ -55,7 +55,7 @@
         <!-- No.6 ポイント(イベント14) -->
         <div class="col-12 col-md-4">
           <a class="d-block p-3 rounded bg-success bg-opacity-10 text-decoration-none text-reset h-100"
-             href="point.action">
+             href="Point.action">
             <span class="d-block fs-5 fw-bold mb-2">ポイント</span>
             <span class="d-block small text-muted">ポイントの確認と交換</span>
           </a>
@@ -64,7 +64,7 @@
         <!-- No.7 アカウント情報(イベント17) -->
         <div class="col-12 col-md-4">
           <a class="d-block p-3 rounded bg-success bg-opacity-10 text-decoration-none text-reset h-100"
-             href="accountInfo.action">
+             href="AccountInfo.action">
             <span class="d-block fs-5 fw-bold mb-2">アカウント情報</span>
             <span class="d-block small text-muted">登録内容の確認と変更</span>
           </a>
