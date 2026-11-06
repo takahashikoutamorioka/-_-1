@@ -81,7 +81,7 @@
 					<!-- 新規登録へ -->
 					<div class="mt-4">
 						<div class="text-secondary mb-2">または</div>
-						<a href="registerForm.jsp">新規登録はこちら</a>
+						<a href="register.jsp">新規登録はこちら</a>
 					</div>
 				</div>
 			</form>
