@@ -56,7 +56,7 @@
                                 </a>
 
                                 <%-- トップ画面へ戻る --%>
-                                <a href="${pageContext.request.contextPath}/top.jsp"
+                                <a href="${pageContext.request.contextPath}/scoremanager/main/top.jsp"
                                    class="btn btn-secondary btn-lg flex-fill py-3">
                                     トップ画面に戻る
                                 </a>
