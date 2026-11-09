@@ -28,8 +28,8 @@ public class MissionAction extends Action {
 		if (user == null) {
 
 			res.sendRedirect(
-				req.getContextPath()
-				+ "/scoremanager/login.jsp");
+					req.getContextPath()
+					+ "/scoremanager/login.jsp");
 
 			return;
 		}
@@ -45,36 +45,16 @@ public class MissionAction extends Action {
 				"missions",
 				missions);
 
-		// ミッション達成メッセージ受け取り
-
 		req.setAttribute(
 				"missionMessage",
 				session.getAttribute(
 						"missionMessage"));
 
-		req.setAttribute(
-				"rewardExp",
-				session.getAttribute(
-						"rewardExp"));
-
-		req.setAttribute(
-				"rewardPoint",
-				session.getAttribute(
-						"rewardPoint"));
-
-		// 一度表示したら削除
-
 		session.removeAttribute(
 				"missionMessage");
 
-		session.removeAttribute(
-				"rewardExp");
-
-		session.removeAttribute(
-				"rewardPoint");
-
 		req.getRequestDispatcher(
-				"mission.jsp")
+				"/scoremanager/main/mission.jsp")
 				.forward(req, res);
 	}
 }

@@ -12,8 +12,44 @@
   <c:param name="content">
     <section class="me-4">
       <!-- 画面項目No.1:画面タイトル(h2) -->
-      <h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4 text-center">トップ画面</h2>
-      <p class="text-center mb-4">今日も一緒に、脳を元気にしましょう</p>
+      <h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2 px-4 text-center">
+	トップ画面
+	  </h2>
+	
+	  <p class="text-center mb-4">
+		 今日も一緒に、脳を元気にしましょう
+	  </p>
+	
+	<!-- ランクアップ通知 -->
+	
+	  <c:if test="${not empty rankUpMessage}">
+	
+		 <div class="alert alert-warning text-center mx-4 mb-4">
+	
+			 <div class="h4 fw-bold">
+	
+				 ランクアップ！
+	
+			 </div>
+	
+			 <div class="fs-5">
+	
+				ランク
+				${oldRank}
+				→
+				${newRank}
+	
+			 </div>
+	
+			 <div class="small text-muted mt-2">
+	
+				ミッション達成おめでとうございます！
+	
+			 </div>
+	
+		 </div>
+	
+	 </c:if>
 
       <div class="row g-3 px-4">
         <!-- No.2 運動記録(イベント6) -->

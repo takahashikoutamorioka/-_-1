@@ -5,13 +5,9 @@ import java.util.List;
 
 import bean.account;
 import bean.exercise_record;
-import bean.exp;
 import bean.mission;
-import bean.point;
 import dao.ExerciseRecordDAO;
-import dao.ExpDAO;
 import dao.MissionDAO;
-import dao.PointDAO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -46,7 +42,7 @@ public class ExerciseRecordAction extends Action {
 			return;
 		}
 
-		// 入力チェック
+		// 未入力チェック
 		if (distanceStr.trim().isEmpty()) {
 
 			req.setAttribute(
@@ -72,14 +68,15 @@ public class ExerciseRecordAction extends Action {
 				user.getAccountId());
 
 		record.setWalkingDistance(
-				new BigDecimal(distanceStr));
+				new BigDecimal(
+						distanceStr));
 
 		ExerciseRecordDAO exerciseDao =
 				new ExerciseRecordDAO();
 
-		exerciseDao.insert(record);
+		exerciseDao.insert(
+				record);
 
-		// 保存完了メッセージ
 		req.setAttribute(
 				"message",
 				"運動記録を保存しました。");
@@ -92,69 +89,37 @@ public class ExerciseRecordAction extends Action {
 				missionDao.selectUnclearedByAccountId(
 						user.getAccountId());
 
+		boolean completed =
+				false;
+
 		for (mission m : missions) {
 
-			// 運動ミッションのみ
+			// 運動ミッションのみ判定
 			if (m.getTargetType() == 1) {
 
 				if (distance >=
 						m.getTargetValue()
 						.doubleValue()) {
 
-					// ミッションクリア
-					missionDao.clearMission(
-							m.getMissionId());
+					// 未達成のみ達成状態へ変更
+					if (m.getStatus() == 0) {
 
-					// EXP加算
-					ExpDAO expDao =
-							new ExpDAO();
+						missionDao.completeMission(
+								m.getMissionId());
 
-					exp e =
-							expDao.selectByAccountId(
-									user.getAccountId());
-
-					if (e != null) {
-
-						e.setTotalExp(
-								e.getTotalExp()
-								+ m.getRewardExp());
-
-						expDao.update(e);
+						completed = true;
 					}
-
-					// ポイント加算
-					PointDAO pointDao =
-							new PointDAO();
-
-					point p =
-							pointDao.selectByAccountId(
-									user.getAccountId());
-
-					if (p != null) {
-
-						p.setPointCount(
-								p.getPointCount()
-								+ m.getRewardPoint());
-
-						pointDao.update(p);
-					}
-
-					// ミッション画面で表示する
-					session.setAttribute(
-							"missionMessage",
-							"ミッション達成！");
-
-					session.setAttribute(
-							"rewardExp",
-							m.getRewardExp());
-
-					session.setAttribute(
-							"rewardPoint",
-							m.getRewardPoint());
-
-					break;
 				}
 			}
+		}
+
+		// ミッション達成通知
+		if (completed) {
+
+			session.setAttribute(
+					"missionMessage",
+					"ミッションを達成しました！");
+
 		}
 
 		req.getRequestDispatcher(

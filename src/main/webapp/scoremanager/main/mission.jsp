@@ -1,12 +1,18 @@
 <!-- ミッション画面 -->
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+
+<%@ page language="java"
+	contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+
+<%@ taglib prefix="c"
+	uri="jakarta.tags.core"%>
 
 <c:import url="/common/base.jsp">
 
 	<c:param name="title">
+
 		認知症予防トレーニングアプリ
+
 	</c:param>
 
 	<c:param name="content">
@@ -25,7 +31,7 @@
 
 			<p class="text-secondary mb-4">
 
-				条件を達成してクリアを目指しましょう
+				条件を達成して報酬を獲得しましょう
 
 			</p>
 
@@ -55,33 +61,13 @@
 
 			</div>
 
-			<!-- ミッション達成メッセージ -->
+			<!-- メッセージ -->
 
 			<c:if test="${not empty missionMessage}">
 
 				<div class="alert alert-success mx-5 mb-4">
 
-					<div class="fw-bold">
-
-						${missionMessage}
-
-					</div>
-
-					<div class="mt-2">
-
-						<span class="badge bg-primary">
-
-							EXP +${rewardExp}
-
-						</span>
-
-						<span class="badge bg-warning text-dark ms-2">
-
-							P +${rewardPoint}
-
-						</span>
-
-					</div>
+					${missionMessage}
 
 				</div>
 
@@ -93,6 +79,8 @@
 				items="${missions}">
 
 				<div class="bg-light rounded p-3 mb-3 mx-5 text-start">
+
+					<!-- 種別 -->
 
 					<c:choose>
 
@@ -118,6 +106,8 @@
 
 					</c:choose>
 
+					<!-- 内容 -->
+
 					<strong>
 
 						<c:choose>
@@ -128,15 +118,19 @@
 
 							</c:when>
 
-							<c:when test="${m.targetType == 2}">
+							<c:otherwise>
 
-								脳トレで${m.targetValue}点以上
+								脳トレで
+								${m.targetValue}
+								点以上
 
-							</c:when>
+							</c:otherwise>
 
 						</c:choose>
 
 					</strong>
+
+					<!-- 報酬 -->
 
 					<div class="mt-2">
 
@@ -154,9 +148,65 @@
 
 					</div>
 
+					<!-- 未達成 -->
+
+					<c:if test="${m.status == 0}">
+
+						<div class="mt-3">
+
+							<span class="badge bg-secondary">
+
+								未達成
+
+							</span>
+
+						</div>
+
+					</c:if>
+
+					<!-- 達成済み（報酬未受取） -->
+
+					<c:if test="${m.status == 1}">
+
+						<div class="mt-3">
+
+							<form action="MissionClear.action"
+								method="post">
+
+								<input
+									type="hidden"
+									name="missionId"
+									value="${m.missionId}">
+
+								<button
+									type="submit"
+									class="btn btn-success">
+
+									達成
+
+								</button>
+
+							</form>
+
+						</div>
+
+					</c:if>
+
 				</div>
 
 			</c:forEach>
+
+			<!-- ミッションなし -->
+
+			<c:if test="${empty missions}">
+
+				<div class="alert alert-info mx-5">
+
+					表示できるミッションがありません。
+
+				</div>
+
+			</c:if>
 
 			<div class="mx-5 mt-4">
 
