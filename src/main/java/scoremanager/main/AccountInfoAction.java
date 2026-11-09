@@ -9,60 +9,34 @@ import tool.Action;
 
 public class AccountInfoAction extends Action {
 
-	@Override
-	public void execute(
-			HttpServletRequest req,
-			HttpServletResponse res)
-			throws Exception {
+    @Override
+    public void execute(HttpServletRequest req,
+            HttpServletResponse res) throws Exception {
 
-		HttpSession session =
-				req.getSession(false);
+        HttpSession session = req.getSession(false);
 
-		// 未ログイン対策
-		if (session == null
-				|| !(session.getAttribute(
-						"account")
-						instanceof account)) {
+        if (session == null ||
+                !(session.getAttribute("account") instanceof account)) {
+            res.sendRedirect(req.getContextPath() + "/login.jsp");
+            return;
+        }
 
-			res.sendRedirect(
-					req.getContextPath()
-					+ "/scoremanager/login.jsp");
+        account loginAccount =
+                (account) session.getAttribute("account");
 
-			return;
-		}
+        AccountDAO dao = new AccountDAO();
 
-		account loginAccount =
-				(account) session.getAttribute(
-						"account");
+        account latestAccount =
+                dao.findByUserId(loginAccount.getAccountId());
 
-		AccountDAO dao =
-				new AccountDAO();
+        if (latestAccount == null) {
+            session.invalidate();
+            res.sendRedirect(req.getContextPath() + "/login.jsp");
+            return;
+        }
 
-		// DBから最新情報取得
-		account latestAccount =
-				dao.findByUserId(
-						loginAccount.getAccountId());
+        session.setAttribute("account", latestAccount);
 
-		// アカウントが存在しない場合
-		if (latestAccount == null) {
-
-			session.invalidate();
-
-			res.sendRedirect(
-					req.getContextPath()
-					+ "/scoremanager/login.jsp");
-
-			return;
-		}
-
-		// セッション更新
-		session.setAttribute(
-				"account",
-				latestAccount);
-
-		// JSPへ遷移
-		req.getRequestDispatcher(
-				"accountInfo.jsp")
-				.forward(req, res);
-	}
+        req.getRequestDispatcher("accountInfo.jsp").forward(req, res);
+    }
 }
