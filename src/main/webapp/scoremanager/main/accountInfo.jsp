@@ -52,18 +52,26 @@
                 <div class="d-flex justify-content-between border-bottom py-3">
                     <strong>パスワード</strong>
                     <span>●●●●●●●●</span>
-                </div>
-
+                </div>               
                 <div class="d-flex justify-content-between border-bottom py-3">
                     <strong>脳年齢</strong>
-                    <span>未判定</span>
+                    <span>
+                      <c:choose>
+                       <c:when test="${sessionScope.account.brainAge != null && sessionScope.account.brainAge > 0}">
+                         <c:out value="${sessionScope.account.brainAge}"/>歳
+                       </c:when>
+                       <c:otherwise>
+                          未判定
+                       </c:otherwise>
+                     </c:choose>
+                   </span>
                 </div>
-
                 <div class="d-flex justify-content-between border-bottom py-3">
                     <strong>ランク</strong>
-                    <span>未判定</span>
-                </div>
-
+                    <span>
+                         <c:out value="${sessionScope.account.userRank}"/>
+                    </span>
+                </div> 
                 <div class="d-flex gap-3 mt-4 mb-3">
 
                     <a href="AccountEdit.action"
