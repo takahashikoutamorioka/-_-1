@@ -17,7 +17,10 @@ public class AccountInfoAction extends Action {
 
         if (session == null ||
                 !(session.getAttribute("account") instanceof account)) {
-            res.sendRedirect(req.getContextPath() + "/login.jsp");
+
+            res.sendRedirect(
+                req.getContextPath() + "/scoremanager/login.jsp"
+            );
             return;
         }
 
@@ -31,7 +34,10 @@ public class AccountInfoAction extends Action {
 
         if (latestAccount == null) {
             session.invalidate();
-            res.sendRedirect(req.getContextPath() + "/login.jsp");
+
+            res.sendRedirect(
+                req.getContextPath() + "/scoremanager/login.jsp"
+            );
             return;
         }
 
