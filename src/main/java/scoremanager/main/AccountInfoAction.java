@@ -9,34 +9,59 @@ import tool.Action;
 
 public class AccountInfoAction extends Action {
 
-    @Override
-    public void execute(HttpServletRequest req,
-            HttpServletResponse res) throws Exception {
+	@Override
+	public void execute(
+			HttpServletRequest req,
+			HttpServletResponse res)
+			throws Exception {
 
-        HttpSession session = req.getSession(false);
+		HttpSession session =
+				req.getSession(false);
 
-        if (session == null ||
-                !(session.getAttribute("account") instanceof account)) {
-            res.sendRedirect(req.getContextPath() + "/login.jsp");
-            return;
-        }
+		// 未ログイン対策
+		if (session == null
+				|| !(session.getAttribute("account")
+						instanceof account)) {
 
-        account loginAccount =
-                (account) session.getAttribute("account");
+			res.sendRedirect(
+					req.getContextPath()
+					+ "/scoremanager/login.jsp");
 
-        AccountDAO dao = new AccountDAO();
+			return;
+		}
 
-        account latestAccount =
-                dao.findByUserId(loginAccount.getAccountId());
+		account loginAccount =
+				(account) session.getAttribute(
+						"account");
 
-        if (latestAccount == null) {
-            session.invalidate();
-            res.sendRedirect(req.getContextPath() + "/login.jsp");
-            return;
-        }
+		AccountDAO dao =
+				new AccountDAO();
 
-        session.setAttribute("account", latestAccount);
+		// DBから最新情報を取得
+		account latestAccount =
+				dao.findByUserId(
+						loginAccount.getAccountId());
 
-        req.getRequestDispatcher("accountInfo.jsp").forward(req, res);
-    }
+		// アカウントが存在しない場合
+		if (latestAccount == null) {
+
+			session.invalidate();
+
+			res.sendRedirect(
+					req.getContextPath()
+					+ "/scoremanager/login.jsp");
+
+			return;
+		}
+
+		// セッション更新
+		session.setAttribute(
+				"account",
+				latestAccount);
+
+		// JSPへ
+		req.getRequestDispatcher(
+				"/scoremanager/main/accountInfo.jsp")
+				.forward(req, res);
+	}
 }
