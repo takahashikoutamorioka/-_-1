@@ -14,55 +14,71 @@
 		<section class="w-75 text-center m-auto border pb-4">
 
 			<h2 class="h3 mt-4 mb-3 fw-bold">
+
 				<span class="bg-warning px-2">
+
 					ミッション
+
 				</span>
+
 			</h2>
 
 			<p class="text-secondary mb-4">
+
 				条件を達成してクリアを目指しましょう
+
 			</p>
 
 			<div class="row mx-5 mb-4">
 
 				<div class="col-6">
-					<a href="Mission.action?status=0"
+
+					<a href="Mission.action"
 						class="btn btn-primary w-100">
+
 						未クリア
+
 					</a>
+
 				</div>
 
 				<div class="col-6">
-					<a href="missionclear.jsp"
+
+					<a href="MissionClear.action"
 						class="btn btn-secondary w-100">
-						クリア
+
+						クリア済み
+
 					</a>
+
 				</div>
 
 			</div>
 
-			<!-- 達成時のみ表示 -->
+			<!-- ミッション達成メッセージ -->
 
-			<c:if test="${not empty message}">
+			<c:if test="${not empty missionMessage}">
 
 				<div class="alert alert-success mx-5 mb-4">
 
 					<div class="fw-bold">
-						 ミッション達成！
-					</div>
 
-					<div>
-						${message}
+						${missionMessage}
+
 					</div>
 
 					<div class="mt-2">
 
 						<span class="badge bg-primary">
+
 							EXP +${rewardExp}
+
 						</span>
 
 						<span class="badge bg-warning text-dark ms-2">
+
 							P +${rewardPoint}
+
 						</span>
 
 					</div>
@@ -73,49 +89,78 @@
 
 			<!-- ミッション一覧 -->
 
-			<div class="bg-light rounded p-3 mb-3 mx-5 text-start">
-				<span class="badge bg-primary me-2">
-					デイリー
-				</span>
+			<c:forEach var="m"
+				items="${missions}">
 
-				<strong>
-					3km歩く
-				</strong>
-			</div>
+				<div class="bg-light rounded p-3 mb-3 mx-5 text-start">
 
-			<div class="bg-light rounded p-3 mb-3 mx-5 text-start">
-				<span class="badge bg-primary me-2">
-					デイリー
-				</span>
+					<c:choose>
 
-				<strong>
-					脳トレで70点以上を取る
-				</strong>
-			</div>
+						<c:when test="${m.missionType == 1}">
 
-			<div class="bg-light rounded p-3 mb-3 mx-5 text-start">
-				<span class="badge bg-secondary me-2">
-					ワンタイム
-				</span>
+							<span class="badge bg-primary me-2">
 
-				<strong>
-					4km歩く
-				</strong>
-			</div>
+								デイリー
 
-			<div class="bg-light rounded p-3 mb-4 mx-5 text-start">
-				<span class="badge bg-secondary me-2">
-					ワンタイム
-				</span>
+							</span>
 
-				<strong>
-					脳トレで75点以上を取る
-				</strong>
-			</div>
+						</c:when>
 
-			<div class="mx-5">
+						<c:otherwise>
 
-				<a href="top.jsp"
+							<span class="badge bg-secondary me-2">
+
+								ワンタイム
+
+							</span>
+
+						</c:otherwise>
+
+					</c:choose>
+
+					<strong>
+
+						<c:choose>
+
+							<c:when test="${m.targetType == 1}">
+
+								${m.targetValue}km歩こう
+
+							</c:when>
+
+							<c:when test="${m.targetType == 2}">
+
+								脳トレで${m.targetValue}点以上
+
+							</c:when>
+
+						</c:choose>
+
+					</strong>
+
+					<div class="mt-2">
+
+						<span class="badge bg-success">
+
+							EXP +${m.rewardExp}
+
+						</span>
+
+						<span class="badge bg-warning text-dark ms-2">
+
+							P +${m.rewardPoint}
+
+						</span>
+
+					</div>
+
+				</div>
+
+			</c:forEach>
+
+			<div class="mx-5 mt-4">
+
+				<a href="Top.action"
 					class="btn btn-secondary w-100">
 
 					トップ画面に戻る

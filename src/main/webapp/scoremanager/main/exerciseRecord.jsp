@@ -24,25 +24,58 @@
 					今日歩いた距離を入力してください
 				</p>
 
-				<form action="ExerciseRecord.action" method="post">
+				<!-- 入力エラー -->
+
+				<c:if test="${not empty error}">
+
+					<div class="alert alert-danger mx-5">
+
+						${fn:escapeXml(error)}
+
+					</div>
+
+				</c:if>
+
+				<!-- 保存成功 -->
+
+				<c:if test="${not empty message}">
+
+					<div class="alert alert-success mx-5">
+
+						${fn:escapeXml(message)}
+
+					</div>
+
+				</c:if>
+
+				
+
+				<form action="ExerciseRecord.action"
+					method="post">
 
 					<div class="mx-5 mt-4 text-start">
 
 						<label class="form-label fw-bold">
+
 							歩行距離（km）
+
 						</label>
 
 						<input
 							type="text"
-							name="distance"
+							name="walkingDistance"
 							class="form-control ${not empty distanceError ? 'is-invalid' : ''}"
 							placeholder="例：3.5"
 							value="${fn:escapeXml(distance)}">
 
 						<c:if test="${not empty distanceError}">
+
 							<div class="text-danger small mt-1">
+
 								${fn:escapeXml(distanceError)}
+
 							</div>
+
 						</c:if>
 
 					</div>
@@ -60,7 +93,7 @@
 
 						<div class="col-md-6 mb-2">
 
-							<a href="top.jsp"
+							<a href="Top.action"
 								class="btn btn-secondary w-100">
 
 								トップ画面に戻る

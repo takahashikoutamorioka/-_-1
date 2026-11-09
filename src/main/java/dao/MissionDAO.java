@@ -10,23 +10,36 @@ import bean.mission;
 
 public class MissionDAO extends DAO {
 
-	// 未クリアミッション取得
-	public List<mission> selectUncleared()
+	// 指定ユーザーの未クリアミッション取得
+	public List<mission> selectUnclearedByAccountId(
+			int accountId)
 			throws Exception {
 
-		List<mission> list = new ArrayList<>();
+		List<mission> list =
+				new ArrayList<>();
 
 		Connection con = getConnection();
 
-		PreparedStatement st = con.prepareStatement(
-				"SELECT * FROM mission "
-				+ "WHERE status = 0");
+		PreparedStatement st =
+				con.prepareStatement(
 
-		ResultSet rs = st.executeQuery();
+				"SELECT * "
+				+ "FROM mission "
+				+ "WHERE account_id = ? "
+				+ "AND status = 0 "
+				+ "ORDER BY mission_id"
+
+				);
+
+		st.setInt(1, accountId);
+
+		ResultSet rs =
+				st.executeQuery();
 
 		while (rs.next()) {
 
-			mission m = new mission();
+			mission m =
+					new mission();
 
 			m.setMissionId(
 					rs.getInt("mission_id"));
@@ -52,29 +65,43 @@ public class MissionDAO extends DAO {
 			list.add(m);
 		}
 
+		rs.close();
 		st.close();
 		con.close();
 
 		return list;
 	}
 
-	// クリア済ミッション取得
-	public List<mission> selectCleared()
+	// 指定ユーザーのクリア済ミッション取得
+	public List<mission> selectClearedByAccountId(
+			int accountId)
 			throws Exception {
 
-		List<mission> list = new ArrayList<>();
+		List<mission> list =
+				new ArrayList<>();
 
 		Connection con = getConnection();
 
-		PreparedStatement st = con.prepareStatement(
-				"SELECT * FROM mission "
-				+ "WHERE status = 1");
+		PreparedStatement st =
+				con.prepareStatement(
 
-		ResultSet rs = st.executeQuery();
+				"SELECT * "
+				+ "FROM mission "
+				+ "WHERE account_id = ? "
+				+ "AND status = 1 "
+				+ "ORDER BY cleared_at DESC"
+
+				);
+
+		st.setInt(1, accountId);
+
+		ResultSet rs =
+				st.executeQuery();
 
 		while (rs.next()) {
 
-			mission m = new mission();
+			mission m =
+					new mission();
 
 			m.setMissionId(
 					rs.getInt("mission_id"));
@@ -100,6 +127,7 @@ public class MissionDAO extends DAO {
 			list.add(m);
 		}
 
+		rs.close();
 		st.close();
 		con.close();
 
@@ -107,23 +135,27 @@ public class MissionDAO extends DAO {
 	}
 
 	// ミッションクリア
-	public int clearMission(int missionId)
+	public int clearMission(
+			int missionId)
 			throws Exception {
 
-		Connection con = getConnection();
+		Connection con =
+				getConnection();
 
-		PreparedStatement st = con.prepareStatement(
+		PreparedStatement st =
+				con.prepareStatement(
 
 				"UPDATE mission "
 				+ "SET status = 1, "
 				+ "cleared_at = CURRENT_TIMESTAMP "
 				+ "WHERE mission_id = ?"
 
-		);
+				);
 
 		st.setInt(1, missionId);
 
-		int line = st.executeUpdate();
+		int line =
+				st.executeUpdate();
 
 		st.close();
 		con.close();

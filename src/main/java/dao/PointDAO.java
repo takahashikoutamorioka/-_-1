@@ -9,9 +9,8 @@ import bean.point;
 
 public class PointDAO extends DAO {
 
-    // -----------------------------------------
-    // アカウントIDからポイントを取得
-    // -----------------------------------------
+
+//    アカウントIDからポイントを取得
     public point selectByAccountId(int accountId) throws Exception {
 
         point p = null;

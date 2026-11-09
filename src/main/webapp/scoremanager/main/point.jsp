@@ -1,92 +1,135 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 
 <c:import url="/common/base.jsp">
 
-    <c:param name="title" value="ポイント" />
+	<c:param name="title" value="ポイント" />
 
-    <c:param name="content">
+	<c:param name="content">
 
-        <div class="container">
+		<div class="container">
 
-            <div class="row justify-content-center">
+			<div class="row justify-content-center">
 
-                <div class="col-md-10 col-lg-9">
+				<div class="col-md-10 col-lg-9">
 
-                    <div class="card shadow-sm">
+					<div class="card shadow-sm">
 
-                        <div class="card-body text-center p-5">
+						<div class="card-body text-center p-5">
 
-                            <h2 class="h3 fw-bold mb-2">
-                                ポイント
-                            </h2>
+							<h2 class="h3 fw-bold mb-2">
 
-                            <p class="text-secondary mb-3">
-                                現在のポイント
-                            </p>
+								ポイント
 
-                            <%-- エラーメッセージ --%>
-                            <c:if test="${not empty systemError}">
+							</h2>
 
-                                <div class="alert alert-danger text-start mb-4">
-                                    <c:out value="${systemError}" />
-                                </div>
+							<p class="text-secondary mb-3">
 
-                            </c:if>
+								現在のポイント
 
-                            <%-- ポイント表示 --%>
-                            <h3 class="display-5 fw-bold text-success-emphasis mb-4">
+							</p>
 
-                                <c:choose>
+							<!-- システムエラー -->
 
-                                    <c:when test="${not empty pointBean}">
-                                        <c:out value="${pointBean.pointCount}" /> pt
-                                    </c:when>
+							<c:if test="${not empty systemError}">
 
-                                    <c:otherwise>
-                                        0 pt
-                                    </c:otherwise>
+								<div class="alert alert-danger text-start mb-4">
 
-                                </c:choose>
+									<c:out value="${systemError}" />
 
-                            </h3>
+								</div>
 
-                            <%-- ポイントが0の場合 --%>
-                            <c:if test="${empty pointBean or pointBean.pointCount == 0}">
+							</c:if>
 
-                                <div class="alert alert-danger text-start mb-4">
-                                    ポイントがありません
-                                </div>
+							<!-- ポイント表示 -->
 
-                            </c:if>
+							<h3 class="display-5 fw-bold text-success-emphasis mb-2">
 
-                            <%-- ボタン --%>
-                            <div class="d-flex justify-content-center gap-3">
+								<c:choose>
 
-                                <a href="${pageContext.request.contextPath}/scoremanager/main/PointExchange.action"
-                                   class="btn btn-primary btn-lg flex-fill py-3">
-                                    ポイントを交換する
-                                </a>
+									<c:when test="${not empty pointBean}">
 
-                                <a href="${pageContext.request.contextPath}/scoremanager/main/Top.action"
-                                   class="btn btn-secondary btn-lg flex-fill py-3">
-                                    トップ画面に戻る
-                                </a>
+										<c:out value="${pointBean.pointCount}" />
+										pt
 
-                            </div>
+									</c:when>
 
-                        </div>
+									<c:otherwise>
 
-                    </div>
+										0 pt
 
-                </div>
+									</c:otherwise>
 
-            </div>
+								</c:choose>
 
-        </div>
+							</h3>
 
-    </c:param>
+							<p class="text-muted mb-4">
+
+								ミッション達成や脳トレでポイントを獲得できます
+
+							</p>
+
+							<!-- 0ポイント -->
+
+							<c:if test="${empty pointBean or pointBean.pointCount == 0}">
+
+								<div class="alert alert-info text-start mb-4">
+
+									現在ポイントはありません。<br>
+
+									運動記録やミッション達成でポイントを獲得しましょう。
+
+								</div>
+
+							</c:if>
+
+							<!-- ポイントがある場合 -->
+
+							<c:if test="${not empty pointBean and pointBean.pointCount > 0}">
+
+								<div class="alert alert-success text-start mb-4">
+
+									ポイントを利用して景品と交換できます。
+
+								</div>
+
+							</c:if>
+
+							<!-- ボタン -->
+
+							<div class="d-flex justify-content-center gap-3">
+
+								<a
+									href="${pageContext.request.contextPath}/scoremanager/main/PointExchange.action"
+									class="btn btn-primary btn-lg flex-fill py-3">
+
+									ポイントを交換する
+
+								</a>
+
+								<a
+									href="${pageContext.request.contextPath}/scoremanager/main/Top.action"
+									class="btn btn-secondary btn-lg flex-fill py-3">
+
+									トップ画面に戻る
+
+								</a>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</c:param>
 
 </c:import>

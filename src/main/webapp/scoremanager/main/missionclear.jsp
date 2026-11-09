@@ -27,75 +27,120 @@
 			<div class="row mx-5 mb-4">
 
 				<div class="col-6">
-					<a href="mission.jsp"
+
+					<a href="Mission.action"
 						class="btn btn-secondary w-100">
 
 						未クリア
 
 					</a>
+
 				</div>
 
 				<div class="col-6">
-					<a href="missionClear.jsp"
+
+					<a href="MissionClear.action"
 						class="btn btn-primary w-100">
 
-						クリア
+						クリア済み
 
 					</a>
+
 				</div>
 
 			</div>
 
-			<%-- Action完成後はここを使用 --%>
-			<c:forEach var="m" items="${clearMissionList}">
+			<c:choose>
 
-				<div class="bg-light rounded p-3 mb-3 mx-5 text-start">
+				<c:when test="${not empty missions}">
 
-					<span class="badge bg-primary me-2">
-						${m.missionType == 1 ? 'デイリー' : 'ワンタイム'}
-					</span>
+					<c:forEach var="m"
+						items="${missions}">
 
-					<strong>
-						${m.missionName}
-					</strong>
+						<div class="bg-light rounded p-3 mb-3 mx-5 text-start">
 
-				</div>
+							<c:choose>
 
-			</c:forEach>
+								<c:when test="${m.missionType == 1}">
 
-			<%-- 画面確認用サンプル --%>
+									<span class="badge bg-primary me-2">
 
-			<c:if test="${clearMissionList == null}">
+										デイリー
 
-				<div class="bg-light rounded p-3 mb-3 mx-5 text-start">
+									</span>
 
-					<span class="badge bg-primary me-2">
-						デイリー
-					</span>
+								</c:when>
 
-					<strong>
-						3km歩く
-					</strong>
+								<c:otherwise>
 
-				</div>
+									<span class="badge bg-secondary me-2">
 
-				<div class="bg-light rounded p-3 mb-4 mx-5 text-start">
+										ワンタイム
 
-					<span class="badge bg-secondary me-2">
-						ワンタイム
-					</span>
+									</span>
 
-					<strong>
-						4km歩く
-					</strong>
+								</c:otherwise>
 
-				</div>
+							</c:choose>
 
-			</c:if>
+							<strong>
+
+								<c:choose>
+
+									<c:when test="${m.targetType == 1}">
+
+										${m.targetValue}km歩こう
+
+									</c:when>
+
+									<c:when test="${m.targetType == 2}">
+
+										脳トレで${m.targetValue}点以上
+
+									</c:when>
+
+								</c:choose>
+
+							</strong>
+
+							<div class="mt-2">
+
+								<span class="badge bg-success">
+
+									EXP +${m.rewardExp}
+
+								</span>
+
+								<span
+									class="badge bg-warning text-dark ms-2">
+
+									P +${m.rewardPoint}
+
+								</span>
+
+							</div>
+
+						</div>
+
+					</c:forEach>
+
+				</c:when>
+
+				<c:otherwise>
+
+					<div class="alert alert-info mx-5">
+
+						クリア済みのミッションはありません。
+
+					</div>
+
+				</c:otherwise>
+
+			</c:choose>
 
 			<div class="mx-5 mt-4">
 
-				<a href="top.jsp"
+				<a href="Top.action"
 					class="btn btn-secondary w-100">
 
 					トップ画面に戻る
