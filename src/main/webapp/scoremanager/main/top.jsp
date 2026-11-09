@@ -53,13 +53,13 @@
         </div>
 
         <!-- No.6 ポイント(イベント14) -->
-        <div class="col-12 col-md-4">
-          <a class="d-block p-3 rounded bg-success bg-opacity-10 text-decoration-none text-reset h-100"
-             href="Point.action">
-            <span class="d-block fs-5 fw-bold mb-2">ポイント</span>
-            <span class="d-block small text-muted">ポイントの確認と交換</span>
-          </a>
-        </div>
+		<div class="col-12 col-md-4">
+		    <a class="d-block p-3 rounded bg-success bg-opacity-10 text-decoration-none text-reset h-100"
+		       href="${pageContext.request.contextPath}/scoremanager/main/Point.action">
+		        <span class="d-block fs-5 fw-bold mb-2">ポイント</span>
+		        <span class="d-block small text-muted">ポイントの確認と交換</span>
+		    </a>
+		</div>
 
         <!-- No.7 アカウント情報(イベント17) -->
         <div class="col-12 col-md-4">
@@ -72,4 +72,4 @@
       </div>
     </section>
   </c:param>
-</c:import>s
+</c:import>

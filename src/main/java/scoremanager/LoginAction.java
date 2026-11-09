@@ -63,9 +63,15 @@ public class LoginAction extends Action {
 		HttpSession session =
 				req.getSession(true);
 
+		// アカウント情報を保存
 		session.setAttribute(
 				"account",
 				account);
+
+		// アカウントIDを保存（追加）
+		session.setAttribute(
+				"accountId",
+				account.getAccountId());
 
 		// TopActionへリダイレクト
 		if (account.getAccountType() == 1) {

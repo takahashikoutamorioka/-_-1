@@ -3,65 +3,183 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import bean.point;
 
 public class PointDAO extends DAO {
 
-	// account_idからポイント取得
-	public point selectByAccountId(int accountId)
-			throws Exception {
+    // -----------------------------------------
+    // アカウントIDからポイントを取得
+    // -----------------------------------------
+    public point selectByAccountId(int accountId) throws Exception {
 
-		point p = null;
+        point p = null;
 
-		Connection con = getConnection();
+        String sql = "SELECT * FROM point WHERE account_id = ?";
 
-		PreparedStatement st = con.prepareStatement(
-				"SELECT * FROM point WHERE account_id = ?");
+        try (Connection con = getConnection();
+             PreparedStatement st = con.prepareStatement(sql)) {
 
-		st.setInt(1, accountId);
+            st.setInt(1, accountId);
 
-		ResultSet rs = st.executeQuery();
+            try (ResultSet rs = st.executeQuery()) {
 
-		while (rs.next()) {
+                if (rs.next()) {
 
-			p = new point();
+                    p = new point();
 
-			p.setAccountId(
-					rs.getInt("account_id"));
+                    p.setAccountId(rs.getInt("account_id"));
+                    p.setPointCount(rs.getInt("point_count"));
+                }
+            }
+        }
 
-			p.setPointCount(
-					rs.getInt("point_count"));
-		}
+        return p;
+    }
 
-		st.close();
-		con.close();
 
-		return p;
-	}
+    // -----------------------------------------
+    // ポイントを更新
+    // -----------------------------------------
+    public int update(point p) throws Exception {
 
-	// ポイント更新
-	public int update(point p)
-			throws Exception {
+        String sql =
+            "UPDATE point SET point_count = ? WHERE account_id = ?";
 
-		Connection con = getConnection();
+        try (Connection con = getConnection();
+             PreparedStatement st = con.prepareStatement(sql)) {
 
-		PreparedStatement st = con.prepareStatement(
+            st.setInt(1, p.getPointCount());
+            st.setInt(2, p.getAccountId());
 
-				"UPDATE point "
-				+ "SET point_count = ? "
-				+ "WHERE account_id = ?"
+            int line = st.executeUpdate();
 
-		);
+            return line;
+        }
+    }
 
-		st.setInt(1, p.getPointCount());
-		st.setInt(2, p.getAccountId());
 
-		int line = st.executeUpdate();
+    // -----------------------------------------
+    // ポイント交換処理
+    // -----------------------------------------
+    public boolean exchangeGift(int accountId) throws Exception {
 
-		st.close();
-		con.close();
+        try (Connection con = getConnection()) {
 
-		return line;
-	}
+            // 現在のAutoCommit設定を保存
+            boolean autoCommit = con.getAutoCommit();
+
+            try {
+
+                // トランザクション開始
+                con.setAutoCommit(false);
+
+
+                // ---------------------------------
+                // 現在のポイントを取得
+                // ---------------------------------
+                String selectSql =
+                    "SELECT point_count FROM point "
+                    + "WHERE account_id = ? FOR UPDATE";
+
+                int currentPoint = 0;
+
+                try (PreparedStatement st = con.prepareStatement(selectSql)) {
+
+                    st.setInt(1, accountId);
+
+                    try (ResultSet rs = st.executeQuery()) {
+
+                        // ポイント情報が存在しない場合
+                        if (!rs.next()) {
+
+                            con.rollback();
+                            return false;
+                        }
+
+                        currentPoint = rs.getInt("point_count");
+                    }
+                }
+
+
+                // ---------------------------------
+                // 500ポイント未満の場合は交換不可
+                // ---------------------------------
+                if (currentPoint < 500) {
+
+                    con.rollback();
+                    return false;
+                }
+
+
+                // ---------------------------------
+                // POINTテーブルから500ポイント減算
+                // ---------------------------------
+                String updateSql =
+                    "UPDATE point "
+                    + "SET point_count = point_count - 500 "
+                    + "WHERE account_id = ?";
+
+                try (PreparedStatement st = con.prepareStatement(updateSql)) {
+
+                    st.setInt(1, accountId);
+
+                    int line = st.executeUpdate();
+
+                    if (line != 1) {
+
+                        throw new SQLException(
+                            "ポイントの更新に失敗しました。"
+                        );
+                    }
+                }
+
+
+                // ---------------------------------
+                // GIFTテーブルに交換情報を登録
+                // ---------------------------------
+                String insertSql =
+                    "INSERT INTO gift "
+                    + "(account_id, used_point, gift_amount, gift_name) "
+                    + "VALUES (?, 500, 500, 'Amazonギフト券')";
+
+                try (PreparedStatement st = con.prepareStatement(insertSql)) {
+
+                    st.setInt(1, accountId);
+
+                    int line = st.executeUpdate();
+
+                    if (line != 1) {
+
+                        throw new SQLException(
+                            "ギフト券情報の登録に失敗しました。"
+                        );
+                    }
+                }
+
+
+                // ---------------------------------
+                // トランザクション確定
+                // ---------------------------------
+                con.commit();
+
+                return true;
+
+
+            } catch (Exception e) {
+
+                // エラー発生時は処理を取り消す
+                con.rollback();
+
+                throw e;
+
+
+            } finally {
+
+                // AutoCommit設定を元に戻す
+                con.setAutoCommit(autoCommit);
+            }
+        }
+    }
 }
