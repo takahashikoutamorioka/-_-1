@@ -19,38 +19,24 @@
 
                         <div class="card-body text-center p-5">
 
-                            <h2 class="h3 fw-bold text-success mb-4">
+                            <h2 class="h3 fw-bold mb-4">
                                 ポイント交換完了
                             </h2>
 
-
-                            <div class="alert alert-success">
-
-                                ポイント交換が正常に完了しました。
-
+                            <div class="alert alert-success mb-4">
+                                ポイント交換が完了しました。
                             </div>
 
-
-                            <p class="mb-4">
-                                Amazonギフト券500円分の交換を受け付けました。
+                            <p class="text-secondary mb-4">
+                                Amazonギフト券への交換申請が完了しました。
                             </p>
 
+                            <%-- トップ画面に戻るボタン --%>
+                            <div class="d-flex justify-content-center">
 
-                            <div class="d-flex justify-content-center gap-3">
-
-                                <a href="${pageContext.request.contextPath}/scoremanager/main/Point.action"
-                                   class="btn btn-primary btn-lg flex-fill py-3">
-
-                                    ポイント画面へ
-
-                                </a>
-
-
-                                <a href="${pageContext.request.contextPath}/top.jsp"
-                                   class="btn btn-secondary btn-lg flex-fill py-3">
-
-                                    トップ画面へ
-
+                                <a href="${pageContext.request.contextPath}/scoremanager/main/Top.action"
+                                   class="btn btn-secondary btn-lg px-5 py-3">
+                                    トップ画面に戻る
                                 </a>
 
                             </div>
