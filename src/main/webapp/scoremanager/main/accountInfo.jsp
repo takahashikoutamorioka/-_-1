@@ -26,20 +26,27 @@
 
                 <div class="d-flex justify-content-between border-bottom py-3">
                     <strong>名前</strong>
-                    <span>
-                        <c:out value="${sessionScope.account.name}"
-                               default="未設定"/>
+                    <span>                       
+                        <c:out value="${sessionScope.account.userName}"
+                          default="未設定"/>
+
                     </span>
                 </div>
 
                 <div class="d-flex justify-content-between border-bottom py-3">
                     <strong>メールアドレス</strong>
-                    <span>未設定</span>
+                    <span>
+                        <c:out value="${sessionScope.account.email}"
+                               default="未設定"/>
+                    </span>
                 </div>
 
                 <div class="d-flex justify-content-between border-bottom py-3">
                     <strong>電話番号</strong>
-                    <span>未設定</span>
+                    <span>
+                        <c:out value="${sessionScope.account.tel}"
+                                default="未設定"/>
+                    </span>
                 </div>
 
                 <div class="d-flex justify-content-between border-bottom py-3">
@@ -59,7 +66,7 @@
 
                 <div class="d-flex gap-3 mt-4 mb-3">
 
-                    <a href="accountEdit.jsp"
+                    <a href="AccountEdit.action"
                        class="btn btn-primary w-50">
                         変更する
                     </a>
