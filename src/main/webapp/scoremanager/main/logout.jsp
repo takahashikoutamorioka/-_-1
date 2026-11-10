@@ -1,6 +1,6 @@
-<!-- ログアウト -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 
 <%-- 共通レイアウトの読み込み --%>
@@ -13,49 +13,59 @@
     <c:param name="content">
 
         <div class="container">
+
             <div class="row justify-content-center">
+
                 <div class="col-md-6">
 
                     <div class="card shadow-sm">
+
                         <div class="card-body text-center p-5">
 
                             <%-- 見出し --%>
-                            <h2 class="h4 mb-4">
+                            <h2 class="h4 fw-bold mb-4">
                                 ログアウト確認
                             </h2>
 
                             <%-- 確認メッセージ --%>
-                            <p class="mb-4">
+                            <p class="text-secondary mb-4">
                                 ログアウトしますか？
                             </p>
 
-                            <%-- ボタンを横並びに配置 --%>
+                            <%-- ボタン --%>
                             <div class="d-flex justify-content-center gap-3">
 
                                 <%-- ログアウトボタン --%>
-                                <form action="${pageContext.request.contextPath}/LogoutAction"
-                                      method="post">
+                                <form
+                                    action="${pageContext.request.contextPath}/scoremanager/main/Logout.action"
+                                    method="post">
 
                                     <button type="submit"
-                                        class="btn btn-primary">
+                                        class="btn btn-primary btn-lg">
                                         ログアウトする
                                     </button>
 
                                 </form>
 
                                 <%-- キャンセルボタン --%>
-                                <a href="${pageContext.request.contextPath}/top.jsp"
-                                   class="btn btn-outline-secondary">
+                                <a
+                                    href="${pageContext.request.contextPath}/scoremanager/main/Top.action"
+                                    class="btn btn-outline-secondary btn-lg">
+
                                     キャンセル
+
                                 </a>
 
                             </div>
 
                         </div>
+
                     </div>
 
                 </div>
+
             </div>
+
         </div>
 
     </c:param>

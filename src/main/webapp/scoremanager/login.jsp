@@ -17,7 +17,7 @@
 						// チェックが入っている場合
 						// パスワード入力欄をテキストにする
 						$('#password-input').attr('type', 'text');
-					} else {
+					} else {qqqqqq																																																																																																																																																																																																																																																																																																																																																																																																																																																															
 						// チェックが外れている場合
 						// パスワード入力欄をパスワードにする
 						$('#password-input').attr('type', 'password');

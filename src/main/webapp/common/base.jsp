@@ -65,13 +65,11 @@
 
 					</span>
 
-					<a
-						href="Logout.action"
-						class="btn btn-outline-danger btn-sm">
-
-						ログアウト
-
-					</a>
+						<a
+					   		 href="${pageContext.request.contextPath}/scoremanager/main/logout.jsp"
+					    		class="btn btn-outline-danger btn-sm">
+					    		ログアウト
+						</a>
 
 				</div>
 
