@@ -1,8 +1,11 @@
 package scoremanager.main;
 
-public class AccountInfoAction {
-
-}
+import bean.account;
+import dao.AccountDAO;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import tool.Action;
 
 public class AccountInfoAction extends Action {
 
@@ -63,4 +66,3 @@ public class AccountInfoAction extends Action {
 				.forward(req, res);
 	}
 }
->>>>>>> branch 'master' of https://github.com/takahashikoutamorioka/-_-1.git
