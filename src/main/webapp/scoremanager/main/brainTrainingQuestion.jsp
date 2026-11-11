@@ -22,7 +22,7 @@
                     問題 ${questionNo} / 10
                 </p>
 
-                <form action="BrainTrainingPlay.action" method="post">
+                <form action="BrainTrainingAnswer.action" method="post">
 
                     <input type="hidden"
                         name="trainingType"
