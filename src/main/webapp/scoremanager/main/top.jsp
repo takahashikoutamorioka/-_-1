@@ -64,7 +64,7 @@
         <!-- No.3 脳トレ(イベント7) -->
         <div class="col-12 col-md-4">
           <a class="d-block p-3 rounded bg-success bg-opacity-10 text-decoration-none text-reset h-100"
-             href="BrainTraining.action">
+             href="BrainTrainingPlay.action">
             <span class="d-block fs-5 fw-bold mb-2">脳トレ</span>
             <span class="d-block small text-muted">4種類から選んで挑戦</span>
           </a>

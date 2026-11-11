@@ -4,7 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import tool.Action;
 
-public class BrainTrainingAction extends Action {
+public class BrainTrainingSelectAction extends Action {
 
     @Override
     public void execute(HttpServletRequest req,
