@@ -29,7 +29,7 @@
 					</div>
 				</c:if>
 
-				<form action="BrainTrainingSelect.action" method="post">
+				<form action="BrainTrainingPlay.action" method="post">
 
 					<div class="mx-5 text-start">
 
@@ -50,7 +50,7 @@
 								計算
 
 								<span class="text-secondary small ms-2">
-									約10点満点
+									約100点満点
 								</span>
 
 							</label>
@@ -70,7 +70,7 @@
 								記憶力
 
 								<span class="text-secondary small ms-2">
-									約10点満点
+									約100点満点
 								</span>
 
 							</label>
@@ -90,7 +90,7 @@
 								神経衰弱
 
 								<span class="text-secondary small ms-2">
-									約10点満点
+									約100点満点
 								</span>
 
 							</label>
@@ -110,7 +110,7 @@
 								クイズ
 
 								<span class="text-secondary small ms-2">
-									約10点満点
+									約100点満点
 								</span>
 
 							</label>
