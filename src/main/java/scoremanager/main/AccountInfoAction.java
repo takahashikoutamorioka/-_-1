@@ -2,9 +2,8 @@ package scoremanager.main;
 
 public class AccountInfoAction {
 
-<<<<<<< HEAD
 }
-=======
+
 public class AccountInfoAction extends Action {
 
 	@Override
