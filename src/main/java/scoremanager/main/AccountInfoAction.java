@@ -53,6 +53,7 @@ public class AccountInfoAction extends Action {
 
 			return;
 		}
+		
 
 		// セッション更新
 		session.setAttribute(
