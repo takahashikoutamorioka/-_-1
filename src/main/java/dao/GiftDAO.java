@@ -8,87 +8,120 @@ import java.util.List;
 
 import bean.gift;
 
+/**
+ * ギフト券交換履歴DAO
+ */
 public class GiftDAO extends DAO {
 
-	// ギフト券交換
-	public int insert(gift g)
-			throws Exception {
+    /**
+     * ギフト券交換履歴を登録する
+     */
+    public void insert(gift g) throws Exception {
 
-		Connection con = getConnection();
+        String sql =
+            "INSERT INTO gift " +
+            "(account_id, used_point, gift_amount, gift_name) " +
+            "VALUES (?, ?, ?, ?)";
 
-		PreparedStatement st = con.prepareStatement(
+        try (
+            Connection con = getConnection();
+            PreparedStatement st = con.prepareStatement(sql)
+        ) {
 
-			"INSERT INTO gift("
-			+ "account_id, "
-			+ "used_point, "
-			+ "gift_amount, "
-			+ "gift_name"
-			+ ") VALUES(?,?,?,?)"
+            st.setInt(1, g.getAccountId());
+            st.setInt(2, g.getUsedPoint());
+            st.setInt(3, g.getGiftAmount());
+            st.setString(4, g.getGiftName());
 
-		);
+            st.executeUpdate();
+        }
+    }
 
-		st.setInt(1, g.getAccountId());
-		st.setInt(2, g.getUsedPoint());
-		st.setInt(3, g.getGiftAmount());
-		st.setString(4, g.getGiftName());
+    /**
+     * 指定したユーザーのギフト券交換履歴を取得する
+     */
+    public List<gift> selectByAccountId(int accountId) throws Exception {
 
-		int line = st.executeUpdate();
+        List<gift> list = new ArrayList<>();
 
-		st.close();
-		con.close();
+        String sql =
+            "SELECT * FROM gift " +
+            "WHERE account_id = ? " +
+            "ORDER BY exc_at DESC";
 
-		return line;
-	}
+        try (
+            Connection con = getConnection();
+            PreparedStatement st = con.prepareStatement(sql)
+        ) {
 
-	// ギフト交換履歴取得
-	public List<gift> selectByAccountId(
-			int accountId)
-			throws Exception {
+            st.setInt(1, accountId);
 
-		List<gift> list = new ArrayList<>();
+            try (ResultSet rs = st.executeQuery()) {
 
-		Connection con = getConnection();
+                while (rs.next()) {
 
-		PreparedStatement st = con.prepareStatement(
+                    gift g = new gift();
 
-			"SELECT * FROM gift "
-			+ "WHERE account_id=? "
-			+ "ORDER BY exc_at DESC"
+                    g.setGiftExcId(rs.getInt("gift_exc_id"));
+                    g.setAccountId(rs.getInt("account_id"));
+                    g.setExcAt(rs.getTimestamp("exc_at"));
+                    g.setUsedPoint(rs.getInt("used_point"));
+                    g.setGiftAmount(rs.getInt("gift_amount"));
+                    g.setGiftName(rs.getString("gift_name"));
 
-		);
+                    list.add(g);
+                }
+            }
+        }
 
-		st.setInt(1, accountId);
+        return list;
+    }
 
-		ResultSet rs = st.executeQuery();
+    /**
+     * 管理者用：全ユーザーのギフト券交換履歴を取得する
+     */
+    public List<gift> selectAllForAdmin() throws Exception {
 
-		while (rs.next()) {
+        List<gift> list = new ArrayList<>();
 
-			gift g = new gift();
+        String sql =
+            "SELECT " +
+            "g.gift_exc_id, " +
+            "g.account_id, " +
+            "g.exc_at, " +
+            "g.used_point, " +
+            "g.gift_amount, " +
+            "g.gift_name, " +
+            "a.user_name " +
+            "FROM gift g " +
+            "INNER JOIN account a " +
+            "ON g.account_id = a.account_id " +
+            "ORDER BY g.exc_at DESC";
 
-			g.setGiftExcId(
-					rs.getInt("gift_exc_id"));
+        try (
+            Connection con = getConnection();
+            PreparedStatement st = con.prepareStatement(sql);
+            ResultSet rs = st.executeQuery()
+        ) {
 
-			g.setAccountId(
-					rs.getInt("account_id"));
+            while (rs.next()) {
 
-			g.setExcAt(
-					rs.getTimestamp("exc_at"));
+                gift g = new gift();
 
-			g.setUsedPoint(
-					rs.getInt("used_point"));
+                g.setGiftExcId(rs.getInt("gift_exc_id"));
+                g.setAccountId(rs.getInt("account_id"));
+                g.setExcAt(rs.getTimestamp("exc_at"));
+                g.setUsedPoint(rs.getInt("used_point"));
+                g.setGiftAmount(rs.getInt("gift_amount"));
+                g.setGiftName(rs.getString("gift_name"));
 
-			g.setGiftAmount(
-					rs.getInt("gift_amount"));
+                // ユーザー名を取得
+                g.setUserName(rs.getString("user_name"));
 
-			g.setGiftName(
-					rs.getString("gift_name"));
+                list.add(g);
+            }
+        }
 
-			list.add(g);
-		}
-
-		st.close();
-		con.close();
-
-		return list;
-	}
+        return list;
+    }
 }
