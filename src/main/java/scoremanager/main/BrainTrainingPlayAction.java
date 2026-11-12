@@ -31,6 +31,16 @@ public class BrainTrainingPlayAction extends Action {
             return;
         }
 
+     // ワーキングメモリの場合は専用画面へ移動
+        if ("quiz".equals(trainingType)) {
+
+            res.sendRedirect(
+                    req.getContextPath()
+                    + "/scoremanager/main/workingMemory.jsp");
+
+            return;
+        }
+
         int trainingId = 0;
         String trainingName = "";
 

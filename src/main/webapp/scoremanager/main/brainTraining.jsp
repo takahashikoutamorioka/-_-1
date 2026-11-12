@@ -107,7 +107,7 @@
 
 							<label for="quiz">
 
-								神経衰弱
+								ワーキングメモリ
 
 								<span class="text-secondary small ms-2">
 									約100点満点
