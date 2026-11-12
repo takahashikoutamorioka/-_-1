@@ -26,6 +26,7 @@
 			});
 		</script>
 	</c:param>
+	
 
 	<c:param name="content">
 		<section class="w-75 text-center m-auto border pb-3">

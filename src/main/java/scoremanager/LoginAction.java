@@ -30,6 +30,7 @@ public class LoginAction extends Action {
 
 			return;
 		}
+		
 
 		// DB検索
 		AccountDAO dao = new AccountDAO();
