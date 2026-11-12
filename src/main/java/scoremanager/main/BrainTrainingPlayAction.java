@@ -48,12 +48,12 @@ public class BrainTrainingPlayAction extends Action {
 
         case "quiz":
             trainingId = 3;
-            trainingName = "クイズ";
+            trainingName = "神経衰弱";
             break;
 
         case "judgment":
             trainingId = 4;
-            trainingName = "神経衰弱";
+            trainingName = "クイズ";
             break;
         }
 

@@ -87,7 +87,7 @@
 
 							<label for="judgment">
 
-								神経衰弱
+								クイズ
 
 								<span class="text-secondary small ms-2">
 									約100点満点
@@ -107,7 +107,7 @@
 
 							<label for="quiz">
 
-								クイズ
+								神経衰弱
 
 								<span class="text-secondary small ms-2">
 									約100点満点
