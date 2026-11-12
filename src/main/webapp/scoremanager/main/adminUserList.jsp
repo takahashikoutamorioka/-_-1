@@ -1,19 +1,22 @@
-<!-- ユーザー一覧 -->
+<%-- ユーザー一覧 --%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 
+<%-- 共通レイアウトの読み込み --%>
 <c:import url="/common/base.jsp">
 
-    <c:param name="title">
-        ユーザー一覧
-    </c:param>
+    <%-- ページタイトル --%>
+    <c:param name="title" value="ユーザー一覧" />
 
+    <%-- 画面内容 --%>
     <c:param name="content">
 
         <section class="w-75 m-auto border rounded bg-white p-4">
 
+            <%-- 見出し --%>
             <h2 class="h2 fw-bold text-center mt-3">
                 ユーザー一覧
             </h2>
@@ -22,8 +25,10 @@
                 登録されているユーザーです
             </p>
 
+            <%-- ユーザー一覧表示 --%>
             <c:choose>
 
+                <%-- ユーザーが存在する場合 --%>
                 <c:when test="${not empty userList}">
 
                     <div class="table-responsive bg-success-subtle rounded p-3">
@@ -45,19 +50,25 @@
 
                                     <tr class="border-bottom">
 
+                                        <%-- 名前 --%>
                                         <td>
-                                            <c:out value="${user.name}"/>
+                                            <c:out value="${user.userName}"/>
                                         </td>
 
+                                        <%-- メールアドレス --%>
                                         <td>
-                                            <c:out value="${user.mail}"/>
+                                            <c:out value="${user.email}"/>
                                         </td>
 
+                                        <%-- 電話番号 --%>
                                         <td>
                                             <c:out value="${user.tel}"/>
                                         </td>
 
-                                        <td>●●●●●●●●</td>
+                                        <%-- パスワード --%>
+                                        <td>
+                                            ●●●●●●●●
+                                        </td>
 
                                     </tr>
 
@@ -71,6 +82,7 @@
 
                 </c:when>
 
+                <%-- ユーザーが存在しない場合・エラーの場合 --%>
                 <c:otherwise>
 
                     <div class="alert alert-danger">
@@ -82,9 +94,12 @@
 
             </c:choose>
 
-            <a href="adminTop.jsp"
+            <%-- 管理者画面に戻る --%>
+            <a href="${pageContext.request.contextPath}/scoremanager/main/AdminTop.action"
                class="btn btn-secondary w-100 mt-4">
+
                 管理者画面に戻る
+
             </a>
 
         </section>
