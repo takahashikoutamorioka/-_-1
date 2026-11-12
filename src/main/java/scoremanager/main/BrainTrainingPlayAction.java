@@ -135,7 +135,7 @@ public class BrainTrainingPlayAction extends Action {
                 trainingType);
 
         req.getRequestDispatcher(
-                "brainTrainingQuestion.jsp")
+                "brainTrainingquestion.jsp")
                 .forward(req, res);
     }
 }
