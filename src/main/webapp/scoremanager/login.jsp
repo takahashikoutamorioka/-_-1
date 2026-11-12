@@ -59,7 +59,7 @@
 						<!-- パスワード -->
 						<div class="form-floating mx-5 mt-3">
 							<input class="form-control px-5 fs-5" autocomplete="off"
-								id="password-input" maxlength="20" name="password"
+								id="password-input" maxlength="255" name="password"
 								placeholder="パスワードを入力してください" type="password" required />
 							<label for="password-input">パスワード</label>
 						</div>
