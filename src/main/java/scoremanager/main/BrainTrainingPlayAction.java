@@ -58,7 +58,7 @@ public class BrainTrainingPlayAction extends Action {
 
         case "quiz":
             trainingId = 3;
-            trainingName = "神経衰弱";
+            trainingName = "ワーキングメモリ";
             break;
 
         case "judgment":
@@ -145,7 +145,7 @@ public class BrainTrainingPlayAction extends Action {
                 trainingType);
 
         req.getRequestDispatcher(
-                "brainTrainingquestion.jsp")
+                "/scoremanager/main/brainTrainingQuestion.jsp")
                 .forward(req, res);
     }
 }

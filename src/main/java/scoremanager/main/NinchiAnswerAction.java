@@ -2,7 +2,9 @@ package scoremanager.main;
 
 import java.util.List;
 
+import bean.account;
 import bean.ninchi_question;
+import dao.AccountDAO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -47,11 +49,10 @@ public class NinchiAnswerAction extends Action {
 			score++;
 		}
 
-		// 次の問題番号
+		// 次の問題へ
 		index++;
 
-		// 15問終了
-		// 全問終了
+		// 全問題終了
 		if (index >= questions.size()) {
 
 			int brainAge;
@@ -77,7 +78,35 @@ public class NinchiAnswerAction extends Action {
 				brainAge = 80;
 			}
 
-			// 結果表示用
+			// ログインユーザー取得
+			account loginUser =
+					(account) session.getAttribute(
+							"account");
+
+			// DB更新
+			AccountDAO dao =
+					new AccountDAO();
+
+			boolean result =
+					dao.updateBrainAge(
+							loginUser.getAccountId(),
+							brainAge);
+
+			if (!result) {
+
+				throw new Exception(
+						"脳年齢の更新に失敗しました");
+			}
+
+			// セッション更新
+			loginUser.setBrainAge(
+					brainAge);
+
+			session.setAttribute(
+					"account",
+					loginUser);
+
+			// 結果表示
 			req.setAttribute(
 					"score",
 					score);
@@ -86,10 +115,6 @@ public class NinchiAnswerAction extends Action {
 					"brainAge",
 					brainAge);
 
-			System.out.println("結果画面へ");
-			System.out.println("score=" + score);
-			System.out.println("brainAge=" + brainAge);
-
 			req.getRequestDispatcher(
 					"/scoremanager/main/ninchiResult.jsp")
 					.forward(req, res);
@@ -97,25 +122,25 @@ public class NinchiAnswerAction extends Action {
 			return;
 		}
 
-		// 次の問題用
+		// 次問題用
 		session.setAttribute(
-		        "index",
-		        index);
+				"index",
+				index);
 
 		session.setAttribute(
-		        "score",
-		        score);
+				"score",
+				score);
 
 		req.setAttribute(
-		        "questionNo",
-		        index + 1);
+				"questionNo",
+				index + 1);
 
 		req.setAttribute(
-		        "question",
-		        questions.get(index));
+				"question",
+				questions.get(index));
 
 		req.getRequestDispatcher(
-		        "/scoremanager/main/ninchiQuestion.jsp")
-		        .forward(req, res);
+				"/scoremanager/main/ninchiQuestion.jsp")
+				.forward(req, res);
 	}
 }

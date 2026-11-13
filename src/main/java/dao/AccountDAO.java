@@ -276,26 +276,14 @@ public class AccountDAO extends DAO {
 	}
 
 	/** 脳年齢更新 */
-	public boolean updateBrainAge(
-			int accountId,
-			int brainAge)
-			throws Exception {
-
-		String sql =
-				"UPDATE account "
-				+ "SET brain_age = ? "
-				+ "WHERE account_id = ?";
-
-		try (Connection con =
-					getConnection();
-				PreparedStatement ps =
-					con.prepareStatement(sql)) {
-
-			ps.setInt(1, brainAge);
-			ps.setInt(2, accountId);
-
-			return ps.executeUpdate() > 0;
-		}
+	public boolean updateBrainAge(int accountId, int brainAge) throws Exception {
+	    String sql = "update account set brain_age = ? where account_id = ?";
+	    try (Connection con = getConnection();
+	         PreparedStatement st = con.prepareStatement(sql)) {
+	        st.setInt(1, brainAge);
+	        st.setInt(2, accountId);
+	        return st.executeUpdate() > 0;
+	    }
 	}
 
 	/** ランク更新 */
