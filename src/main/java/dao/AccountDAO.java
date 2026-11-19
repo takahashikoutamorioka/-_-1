@@ -217,6 +217,97 @@ public class AccountDAO extends DAO {
 
 					ps.executeUpdate();
 				}
+				// デイリーミッション①（運動2km）
+				try (PreparedStatement ps =
+						con.prepareStatement(
+							"""
+							INSERT INTO mission
+							(
+								account_id,
+								mission_type,
+								target_type,
+								target_value,
+								status,
+								reward_exp,
+								reward_point
+							)
+							VALUES
+							(?, 1, 1, 2, 0, 20, 50)
+							""")) {
+
+					ps.setInt(1, accountId);
+
+					ps.executeUpdate();
+				}
+
+				// デイリーミッション②（脳トレ60点）
+				try (PreparedStatement ps =
+						con.prepareStatement(
+							"""
+							INSERT INTO mission
+							(
+								account_id,
+								mission_type,
+								target_type,
+								target_value,
+								status,
+								reward_exp,
+								reward_point
+							)
+							VALUES
+							(?, 1, 2, 60, 0, 20, 50)
+							""")) {
+
+					ps.setInt(1, accountId);
+
+					ps.executeUpdate();
+				}
+
+				// ワンタイムミッション①（運動1km）
+				try (PreparedStatement ps =
+						con.prepareStatement(
+							"""
+							INSERT INTO mission
+							(
+								account_id,
+								mission_type,
+								target_type,
+								target_value,
+								status,
+								reward_exp,
+								reward_point
+							)
+							VALUES
+							(?, 2, 1, 1, 0, 20, 50)
+							""")) {
+
+					ps.setInt(1, accountId);
+
+					ps.executeUpdate();
+				}
+
+				// ワンタイムミッション②（脳トレ60点）
+				try (PreparedStatement ps =
+						con.prepareStatement(
+							"""
+							INSERT INTO mission
+							(
+								account_id,
+								mission_type,
+								target_type,
+								target_value,
+								status,
+								reward_exp,
+								reward_point
+							)
+							VALUES
+							(?, 2, 2, 60, 0, 20, 50)
+							""")) {
+
+					ps.setInt(1, accountId);
+
+					ps.executeUpdate();
+				}
 
 				con.commit();
 

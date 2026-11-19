@@ -24,7 +24,7 @@
         <div class="d-flex flex-column flex-md-row gap-3">
           <!-- No.2 テストを開始する -->
           <form class="flex-fill d-flex"
-                action="${pageContext.request.contextPath}/scoremanager/main/BrainAgeTestStart.action"
+                action="NonenreiQuestion.action"
                 method="post">
             <button type="submit" class="btn btn-primary flex-fill py-3 fw-bold">テストを開始する</button>
           </form>

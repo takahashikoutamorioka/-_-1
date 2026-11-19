@@ -134,8 +134,39 @@ public class MissionClearAction extends Action {
 				pointDao.update(p);
 			}
 
-			// ミッション完了
+			// ワンタイムミッションなら次を生成
+			if (mission.getMissionType() == 2) {
 
+				// 運動ミッション
+				if (mission.getTargetType() == 1) {
+
+					missionDao.insertMission(
+							user.getAccountId(),
+							2,
+							1,
+							mission.getTargetValue().add(
+									new java.math.BigDecimal("1")),
+							0,
+							20,
+							50);
+				}
+
+				// 脳トレミッション
+				else if (mission.getTargetType() == 2) {
+
+					missionDao.insertMission(
+							user.getAccountId(),
+							2,
+							2,
+							mission.getTargetValue().add(
+									new java.math.BigDecimal("5")),
+							0,
+							20,
+							50);
+				}
+			}
+
+			// ミッション完了
 			missionDao.rewardMission(
 					missionId);
 

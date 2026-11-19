@@ -249,4 +249,49 @@ public class MissionDAO extends DAO {
 
 		return line;
 	}
+	public int insertMission(
+			int accountId,
+			int missionType,
+			int targetType,
+			java.math.BigDecimal targetValue,
+			int status,
+			int rewardExp,
+			int rewardPoint)
+			throws Exception {
+
+		Connection con =
+				getConnection();
+
+		PreparedStatement st =
+				con.prepareStatement(
+						"""
+						INSERT INTO mission
+						(
+							account_id,
+							mission_type,
+							target_type,
+							target_value,
+							status,
+							reward_exp,
+							reward_point
+						)
+						VALUES
+						(?, ?, ?, ?, ?, ?, ?)
+						""");
+
+		st.setInt(1, accountId);
+		st.setInt(2, missionType);
+		st.setInt(3, targetType);
+		st.setBigDecimal(4, targetValue);
+		st.setInt(5, status);
+		st.setInt(6, rewardExp);
+		st.setInt(7, rewardPoint);
+
+		int line = st.executeUpdate();
+
+		st.close();
+		con.close();
+
+		return line;
+	}
 }

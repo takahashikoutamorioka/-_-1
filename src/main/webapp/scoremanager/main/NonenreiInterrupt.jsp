@@ -24,14 +24,19 @@
         <div class="d-flex flex-column flex-md-row gap-3">
           <!-- No.2 終了する -->
           <form class="flex-fill d-flex"
-                action="${pageContext.request.contextPath}/scoremanager/main/BrainAgeTestEnd.action"
-                method="post">
-            <button type="submit" class="btn btn-primary flex-fill py-3 fw-bold">終了する</button>
-          </form>
+		      action="Top.action"
+		      method="post">
+		
+		    <button type="submit"
+		            class="btn btn-primary flex-fill py-3 fw-bold">
+		        終了する
+		    </button>
+		
+		 </form>
 
           <!-- No.3 続ける -->
           <form class="flex-fill d-flex"
-                action="${pageContext.request.contextPath}/scoremanager/main/BrainAgeTestContinue.action"
+                action="/scoremanager/main/NonenreiQuestion.action"
                 method="post">
             <button type="submit" class="btn btn-secondary flex-fill py-3">続ける</button>
           </form>

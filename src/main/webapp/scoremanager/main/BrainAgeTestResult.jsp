@@ -1,118 +1,124 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>脳年齢テスト結果 | 認知症予防トレーニングアプリ</title>
-<style>
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    min-height: 100vh;
-    font-family: "Meiryo", "Hiragino Kaku Gothic ProN", sans-serif;
-    color: #1f3a33;
-    background: linear-gradient(to bottom, #d9ecf5, #e4f3e4);
-    display: flex;
-    flex-direction: column;
-  }
-  /* ヘッダー */
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 24px;
-    background: rgba(255, 255, 255, 0.7);
-  }
-  .app-name { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: bold; }
-  .app-name .logo {
-    width: 32px; height: 32px; border-radius: 50%;
-    background: #2e9e74; color: #fff;
-    display: flex; align-items: center; justify-content: center; font-size: 18px;
-  }
-  .user-area { display: flex; align-items: center; gap: 16px; font-size: 14px; }
-  .logout-btn {
-    padding: 10px 28px; font-size: 18px; font-weight: bold;
-    color: #222; background: #e3e3e6; border: none; border-radius: 6px; text-decoration: none;
-  }
-  .logout-btn:hover { background: #d3d3d8; }
+<%@ page language="java"
+	contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 
-  /* メイン */
-  main { flex: 1; display: flex; justify-content: center; padding: 24px 16px; }
-  .card {
-    width: 100%; max-width: 760px;
-    padding: 32px 36px 40px;
-    background: #fff; border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
-    align-self: flex-start;
-  }
-  h2 { margin: 0 0 8px; text-align: center; font-size: 22px; }
-  .lead { margin: 0 0 16px; text-align: center; font-size: 14px; }
+<%@ taglib prefix="c"
+	uri="jakarta.tags.core"%>
 
-  /* No.1 脳年齢 */
-  .brain-age {
-    margin: 0 0 20px;
-    text-align: center;
-    font-size: 36px;
-    font-weight: bold;
-    color: #1d4a43;
-  }
+<c:import url="/common/base.jsp">
 
-  /* No.2 総合スコア */
-  .score {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 10px 4px; margin-bottom: 12px;
-    border-bottom: 1px solid #e3e6e8;
-    font-size: 14px;
-  }
+	<c:param name="title">
+		認知症予防トレーニングアプリ
+	</c:param>
 
-  /* No.3 戻るボタン */
-  .back {
-    display: block; padding: 14px;
-    text-align: center; font-size: 15px; font-weight: bold;
-    color: #fff; background: #1f64d8;
-    border-radius: 6px; text-decoration: none;
-  }
-  .back:hover { background: #1a55b8; }
+	<c:param name="content">
 
-  footer { padding: 16px; text-align: center; font-size: 12px; color: #55706a; }
-</style>
-</head>
-<body>
+		<section class="w-75 text-center m-auto border pb-5">
 
-<header>
-  <div class="app-name">
-    <span class="logo">&#10047;</span>
-    <span>認知症予防トレーニングアプリ</span>
-  </div>
-  <div class="user-area">
-    <span><c:out value="${sessionScope.account.name}" />さん</span>
-    <a class="logout-btn" href="${pageContext.request.contextPath}/scoremanager/main/Logout.action">ログアウト</a>
-  </div>
-</header>
+			<div id="wrap_box">
 
-<main>
-  <div class="card">
-    <h2>脳年齢テスト結果</h2>
-    <p class="lead">今回のテストの結果です</p>
+				<h2 class="h2 fw-bold mt-4">
+					脳年齢テスト結果
+				</h2>
 
-    <!-- No.1 脳年齢 -->
-    <p class="brain-age"><c:out value="${brainAge}" /> 歳</p>
+				<p class="text-secondary mb-4">
+					認知力チェックの結果です
+				</p>
 
-    <!-- No.2 総合スコア -->
-    <div class="score">
-      <span>総合スコア</span>
-      <span><c:out value="${totalScore}" /> 点</span>
-    </div>
+				<div class="mb-4">
 
-    <!-- No.3 トップ画面に戻る -->
-    <a class="back" href="${pageContext.request.contextPath}/scoremanager/main/top.jsp">トップ画面に戻る</a>
-  </div>
-</main>
+					<h4 class="fw-bold">
+						正解数
+					</h4>
 
-<footer>&copy; 2024 認知症予防トレーニングアプリ</footer>
+					<h3 class="text-primary">
+						${score} / 15問
+					</h3>
 
-</body>
-</html>
+				</div>
+
+				<div class="my-5">
+
+					<h4 class="fw-bold mb-3">
+						あなたの推定脳年齢
+					</h4>
+
+					<h1 class="display-2 fw-bold text-success">
+						${brainAge}歳
+					</h1>
+
+				</div>
+
+				<c:choose>
+
+					<c:when test="${brainAge == 40}">
+
+						<h4 class="text-success mb-4">
+							非常に良好な状態です！
+						</h4>
+
+					</c:when>
+
+					<c:when test="${brainAge == 50}">
+
+						<h4 class="text-primary mb-4">
+							良好な状態です！
+						</h4>
+
+					</c:when>
+
+					<c:when test="${brainAge == 60}">
+
+						<h4 class="text-info mb-4">
+							継続して脳トレに取り組みましょう！
+						</h4>
+
+					</c:when>
+
+					<c:when test="${brainAge == 70}">
+
+						<h4 class="text-warning mb-4">
+							認知機能維持のため継続利用をおすすめします！
+						</h4>
+
+					</c:when>
+
+					<c:otherwise>
+
+						<h4 class="text-danger mb-4">
+							脳トレを継続して認知機能向上を目指しましょう！
+						</h4>
+
+					</c:otherwise>
+
+				</c:choose>
+
+				<div class="text-secondary mb-4">
+					結果はアカウント情報へ保存されました
+				</div>
+
+				<div class="mx-5">
+
+					<a href="BrainTrainingSelect.action"
+					   class="btn btn-primary w-100 mb-2">
+
+						脳トレを始める
+
+					</a>
+
+					<a href="Top.action"
+					   class="btn btn-secondary w-100">
+
+						トップ画面に戻る
+
+					</a>
+
+				</div>
+
+			</div>
+
+		</section>
+
+	</c:param>
+
+</c:import>
