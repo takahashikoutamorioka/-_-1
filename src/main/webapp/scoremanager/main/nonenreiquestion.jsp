@@ -35,7 +35,7 @@
 
 				</div>
 
-				<form action="NinchiAnswer.action"
+				<form action="NonenreiAnswer.action"
 					method="post">
 
 					<div class="form-check mb-2">
@@ -123,7 +123,7 @@
 							class="btn btn-primary">
 
 						<a
-							href="ninchiInterrupt.jsp"
+							href="nonenreistop.jsp"
 							class="btn btn-danger ms-2">
 
 							中断する

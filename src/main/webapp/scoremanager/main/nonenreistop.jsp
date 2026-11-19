@@ -24,7 +24,7 @@
         <div class="d-flex flex-column flex-md-row gap-3">
           <!-- No.2 終了する -->
           <form class="flex-fill d-flex"
-		      action="Top.action"
+		      action="NonenreiStart.action"
 		      method="post">
 		
 		    <button type="submit"
@@ -36,10 +36,15 @@
 
           <!-- No.3 続ける -->
           <form class="flex-fill d-flex"
-                action="/scoremanager/main/NonenreiQuestion.action"
-                method="post">
-            <button type="submit" class="btn btn-secondary flex-fill py-3">続ける</button>
-          </form>
+		      action="NonenreiQuestion.action"
+		      method="post">
+		
+		    <button type="submit"
+		            class="btn btn-secondary flex-fill py-3">
+		        続ける
+		    </button>
+		
+		 </form>
         </div>
       </div>
     </section>
