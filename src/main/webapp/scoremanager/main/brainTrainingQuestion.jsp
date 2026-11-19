@@ -36,7 +36,7 @@
 
                         <div class="border rounded p-4 bg-light mb-4">
 
-                            <h4 class="mb-0">
+                            <h4 class="mb-0" id="memoryQuestion">
                                 ${question.questionText}
                             </h4>
 
@@ -118,6 +118,23 @@
 
         </section>
 
+       </c:param>
+
+    <c:param name="scripts">
+        <c:if test="${trainingType eq 'memory'}">
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    setTimeout(function() {
+                        const question =
+                            document.getElementById("memoryQuestion");
+
+                        if (question) {
+                            question.style.visibility = "hidden";
+                        }
+                    }, 5000);
+                });
+            </script>
+        </c:if>
     </c:param>
 
 </c:import>
