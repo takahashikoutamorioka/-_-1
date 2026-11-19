@@ -29,7 +29,7 @@
 
 				<div class="mb-4">
 
-					<h4>
+					<h4 id="memoryQuestion">
 						${question.questionText}
 					</h4>
 
@@ -138,6 +138,27 @@
 
 		</section>
 
-	</c:param>
+	    </c:param>
+
+    <c:param name="scripts">
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const question = document.getElementById("memoryQuestion");
+
+                if (question) {
+                    const questionText = question.textContent.trim();
+
+                    if (questionText.startsWith("表示：") ||
+                        questionText.startsWith("表示:")) {
+
+                        setTimeout(function() {
+                            question.style.visibility = "hidden";
+                        }, 3000);
+
+                    }
+                }
+            });
+        </script>
+    </c:param>
 
 </c:import>
