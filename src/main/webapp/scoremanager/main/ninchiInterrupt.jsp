@@ -34,7 +34,7 @@
 
 				<div class="col-6">
 
-					<form action="NinchiFinish.action"
+					<form action="../login.jsp"
 						method="post">
 
 						<input
@@ -49,7 +49,7 @@
 				<div class="col-6">
 
 					<a
-						href="ninchiQuestion.jsp"
+						href="NinchiStart.action"
 						class="btn btn-secondary w-100">
 
 						続ける
