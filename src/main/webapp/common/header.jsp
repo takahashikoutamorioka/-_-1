@@ -1,33 +1,64 @@
-<%-- ヘッダー --%>
+<%-- ヘッダー（ハンバーガーメニュー付き）。base.jsp から読み込まれる --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions"%>
 
-<header class="bg-white shadow-sm px-3 py-2 d-flex align-items-center w-100">
-	<%-- アプリ名 --%>
-	<span class="fs-3 fw-bold text-success">認知症予防トレーニングアプリ</span>
+<header class="app-header bg-white shadow-sm">
 
-	<%-- ログイン後のみ表示：ユーザー名・ランク・ログアウト・ハンバーガー --%>
-	<c:if test="${not empty sessionScope.account}">
-		<div class="ms-auto d-flex align-items-center">
-			<%-- ※ getName() が無い場合は Bean のゲッター名に合わせて変更 --%>
-			<span class="me-3">${fn:escapeXml(sessionScope.account.name)} さん</span>
-			<%-- ※ ランクは仮の固定表示。取得できるようになったら差し替え --%>
-			<span class="badge bg-warning text-dark fs-6 me-3">ランク 1</span>
+	<div
+		class="container-fluid px-4 py-3 d-flex justify-content-between align-items-center">
 
-			<%-- ログアウト確認画面へ移動 --%>
-			<a class="btn btn-outline-danger btn-sm me-3"
-				href="${pageContext.request.contextPath}/scoremanager/main/logout.jsp">ログアウト</a>
+		<%-- アプリ名：押すとトップ画面へ（未ログイン時はログイン画面へ） --%>
+		<h1 class="h4 fw-bold m-0">
+			<c:choose>
+				<c:when test="${not empty sessionScope.account}">
+					<a class="text-success text-decoration-none"
+						href="${pageContext.request.contextPath}/scoremanager/main/Top.action">認知症予防トレーニングアプリ</a>
+				</c:when>
+				<c:otherwise>
+					<a class="text-success text-decoration-none"
+						href="${pageContext.request.contextPath}/scoremanager/login.jsp">認知症予防トレーニングアプリ</a>
+				</c:otherwise>
+			</c:choose>
+		</h1>
 
-			<%-- ハンバーガーボタン --%>
-			<button class="btn btn-outline-success" type="button"
-				data-bs-toggle="offcanvas" data-bs-target="#sideMenu"
-				aria-controls="sideMenu" aria-label="メニューを開く">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-		</div>
-	</c:if>
+		<%-- ログイン後のみ表示：ユーザー名・ランク・ログアウト・ハンバーガー --%>
+		<c:if test="${not empty sessionScope.account}">
+
+			<div class="d-flex align-items-center gap-3">
+
+				<span class="fw-semibold">
+					${fn:escapeXml(sessionScope.account.userName)} さん
+				</span>
+
+				<span class="badge bg-warning text-dark fs-6">
+					ランク ${sessionScope.account.userRank}
+				</span>
+
+				<%-- ログアウト確認画面へ移動 --%>
+				<a href="${pageContext.request.contextPath}/scoremanager/main/logout.jsp"
+					class="btn btn-outline-danger btn-sm">ログアウト</a>
+
+				<%-- ハンバーガーボタン --%>
+				<button class="btn btn-outline-success d-flex align-items-center p-2"
+					type="button" data-bs-toggle="offcanvas" data-bs-target="#sideMenu"
+					aria-controls="sideMenu" aria-label="メニューを開く">
+					<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"
+						fill="none" stroke="currentColor" stroke-width="2.5"
+						stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true">
+						<line x1="4" y1="6" x2="20" y2="6" />
+						<line x1="4" y1="12" x2="20" y2="12" />
+						<line x1="4" y1="18" x2="20" y2="18" />
+					</svg>
+				</button>
+
+			</div>
+
+		</c:if>
+
+	</div>
+
 </header>
 
 <%-- スライドメニュー（右から出る）。ログイン後のみ --%>
@@ -41,21 +72,18 @@
 		</div>
 		<div class="offcanvas-body p-0">
 			<div class="list-group list-group-flush">
-				<%-- ※ リンク先の Action 名は実際のものに合わせて変更 --%>
 				<a class="list-group-item list-group-item-action"
-					href="${pageContext.request.contextPath}/scoremanager/main/Top.action">トップ画面</a>
+					href="${pageContext.request.contextPath}/scoremanager/main/ExerciseRecord.action">運動記録</a>
 				<a class="list-group-item list-group-item-action"
-					href="${pageContext.request.contextPath}/scoremanager/main/Exercise.action">運動記録</a>
+					href="${pageContext.request.contextPath}/scoremanager/main/BrainTrainingSelect.action">脳トレ</a>
 				<a class="list-group-item list-group-item-action"
-					href="${pageContext.request.contextPath}/scoremanager/main/BrainTraining.action">脳トレ</a>
-				<a class="list-group-item list-group-item-action"
-					href="${pageContext.request.contextPath}/scoremanager/main/BrainAgeTest.action">脳年齢テスト</a>
+					href="${pageContext.request.contextPath}/scoremanager/main/NonenreiStart.action">脳年齢テスト</a>
 				<a class="list-group-item list-group-item-action"
 					href="${pageContext.request.contextPath}/scoremanager/main/Mission.action">ミッション</a>
 				<a class="list-group-item list-group-item-action"
 					href="${pageContext.request.contextPath}/scoremanager/main/Point.action">ポイント</a>
 				<a class="list-group-item list-group-item-action"
-					href="${pageContext.request.contextPath}/scoremanager/main/Account.action">アカウント情報</a>
+					href="${pageContext.request.contextPath}/scoremanager/main/AccountInfo.action">アカウント情報</a>
 			</div>
 		</div>
 	</div>
