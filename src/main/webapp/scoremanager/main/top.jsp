@@ -56,7 +56,7 @@
         <div class="col-12 col-md-4">
           <a class="d-block p-3 rounded bg-success bg-opacity-10 text-decoration-none text-reset h-100"
              href="ExerciseRecord.action">
-            <span class="d-block fs-5 fw-bold mb-2">運動記録</span>
+            <span class="d-block fs-3 fw-bold mb-2">運動記録</span>
             <span class="d-block small text-muted">歩行距離を記録する</span>
           </a>
         </div>
@@ -65,7 +65,7 @@
         <div class="col-12 col-md-4">
           <a class="d-block p-3 rounded bg-success bg-opacity-10 text-decoration-none text-reset h-100"
              href="BrainTrainingSelect.action">
-            <span class="d-block fs-5 fw-bold mb-2">脳トレ</span>
+            <span class="d-block fs-3 fw-bold mb-2">脳トレ</span>
             <span class="d-block small text-muted">4種類から選んで挑戦</span>
           </a>
         </div>
@@ -74,7 +74,7 @@
         <div class="col-12 col-md-4">
           <a class="d-block p-3 rounded bg-success bg-opacity-10 text-decoration-none text-reset h-100"
              href="NonenreiStart.action">
-            <span class="d-block fs-5 fw-bold mb-2">脳年齢テスト</span>
+            <span class="d-block fs-3 fw-bold mb-2">脳年齢テスト</span>
             <span class="d-block small text-muted">今の脳年齢を確認</span>
           </a>
         </div>
@@ -83,7 +83,7 @@
         <div class="col-12 col-md-4">
           <a class="d-block p-3 rounded bg-success bg-opacity-10 text-decoration-none text-reset h-100"
              href="Mission.action">
-            <span class="d-block fs-5 fw-bold mb-2">ミッション</span>
+            <span class="d-block fs-3 fw-bold mb-2">ミッション</span>
             <span class="d-block small text-muted">今日の目標を確認</span>
           </a>
         </div>
@@ -92,7 +92,7 @@
 		<div class="col-12 col-md-4">
 		    <a class="d-block p-3 rounded bg-success bg-opacity-10 text-decoration-none text-reset h-100"
 		       href="${pageContext.request.contextPath}/scoremanager/main/Point.action">
-		        <span class="d-block fs-5 fw-bold mb-2">ポイント</span>
+		        <span class="d-block fs-3 fw-bold mb-2">ポイント</span>
 		        <span class="d-block small text-muted">ポイントの確認と交換</span>
 		    </a>
 		</div>
@@ -101,7 +101,7 @@
         <div class="col-12 col-md-4">
           <a class="d-block p-3 rounded bg-success bg-opacity-10 text-decoration-none text-reset h-100"
              href="AccountInfo.action">
-            <span class="d-block fs-5 fw-bold mb-2">アカウント情報</span>
+            <span class="d-block fs-3 fw-bold mb-2">アカウント情報</span>
             <span class="d-block small text-muted">登録内容の確認と変更</span>
           </a>
         </div>
