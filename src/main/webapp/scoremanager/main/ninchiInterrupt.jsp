@@ -41,7 +41,7 @@
 							type="submit"
 							value="終了する"
 							class="btn btn-primary w-100">
-
+							
 					</form>
 
 				</div>

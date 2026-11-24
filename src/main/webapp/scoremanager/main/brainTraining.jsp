@@ -23,10 +23,10 @@
 					受ける脳トレを1つ選んでください
 				</p>
 
-				<c:if test="${not empty trainingError}">
-					<div class="alert alert-danger mx-5 py-2">
-						選択してください。
-					</div>
+				<c:if test="${trainingError}">
+				    <div class="alert alert-danger mx-5 py-2">
+				        選択してください。
+				    </div>
 				</c:if>
 
 				<form action="BrainTrainingPlay.action" method="post">

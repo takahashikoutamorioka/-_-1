@@ -1,8 +1,10 @@
 <%-- ログイン画面（login.jsp） --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions"%>
+
+<% if (session != null) {session.invalidate();}session = request.getSession(true);%>
 <c:import url="/common/base.jsp">
 	<c:param name="title">
 		認知症予防トレーニングアプリ
@@ -17,7 +19,7 @@
 						// チェックが入っている場合
 						// パスワード入力欄をテキストにする
 						$('#password-input').attr('type', 'text');
-					} else {qqqqqq																																																																																																																																																																																																																																																																																																																																																																																																																																																															
+					} else {																																																																																																																																																																																																																																																																																																																																																																																																																																																															
 						// チェックが外れている場合
 						// パスワード入力欄をパスワードにする
 						$('#password-input').attr('type', 'password');

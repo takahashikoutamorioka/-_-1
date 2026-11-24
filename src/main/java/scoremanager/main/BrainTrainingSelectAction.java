@@ -9,6 +9,8 @@ public class BrainTrainingSelectAction extends Action {
     @Override
     public void execute(HttpServletRequest req,
             HttpServletResponse res) throws Exception {
+    	
+    	req.setAttribute("trainingError", false);
 
         req.getRequestDispatcher("brainTraining.jsp").forward(req, res);
     }

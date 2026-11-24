@@ -12,128 +12,118 @@ import tool.Action;
 
 public class LoginAction extends Action {
 
-	@Override
-	public void execute(HttpServletRequest req,
-			HttpServletResponse res)
-			throws Exception {
+    @Override
+    public void execute(HttpServletRequest req,
+            HttpServletResponse res)
+            throws Exception {
 
-		// 入力値取得
-		String name = req.getParameter("name");
-		String password = req.getParameter("password");
+        // 入力値取得
+        String name = req.getParameter("name");
+        String password = req.getParameter("password");
 
-		List<String> errors = new ArrayList<>();
+        List<String> errors = new ArrayList<>();
 
-		// 入力チェック
-		if (!checkInput(name, password, errors)) {
+        // 入力チェック
+        if (!checkInput(name, password, errors)) {
 
-			backToLogin(req, res, name, errors);
+            backToLogin(req, res, name, errors);
 
-			return;
-		}
-		
+            return;
+        }
 
-		// DB検索
-		AccountDAO dao = new AccountDAO();
+        // DB検索
+        AccountDAO dao = new AccountDAO();
 
-		account account =
-				dao.findByNameAndPassword(
-						name.trim(),
-						password);
+        account account =
+                dao.findByNameAndPassword(
+                        name.trim(),
+                        password);
 
-		// ログイン失敗
-		if (account == null) {
+        // ログイン失敗
+        if (account == null) {
 
-			errors.add(
-				"ユーザー名またはパスワードが違います");
+            errors.add(
+                    "ユーザー名またはパスワードが違います");
 
-			backToLogin(req, res, name, errors);
+            backToLogin(req, res, name, errors);
 
-			return;
-		}
+            return;
+        }
 
-		// 古いセッション破棄
-		HttpSession old =
-				req.getSession(false);
+        // 古いセッション破棄
+        HttpSession old =
+                req.getSession(false);
 
-		if (old != null) {
+        if (old != null) {
+            old.invalidate();
+        }
 
-			old.invalidate();
-		}
+        // 新しいセッション作成
+        HttpSession session =
+                req.getSession(true);
 
-		// 新しいセッション作成
-		HttpSession session =
-				req.getSession(true);
+        session.setAttribute(
+                "account",
+                account);
 
-		// アカウント情報を保存
-		session.setAttribute(
-				"account",
-				account);
+        session.setAttribute(
+                "accountId",
+                account.getAccountId());
 
-		// アカウントIDを保存（追加）
-		session.setAttribute(
-				"accountId",
-				account.getAccountId());
+        // 画面遷移
+        if (account.getAccountType() == 1) {
 
-		// TopActionへリダイレクト
-		if (account.getAccountType() == 1) {
+            res.sendRedirect(
+                    req.getContextPath()
+                    + "/scoremanager/main/AdminTop.action");
 
-			res.sendRedirect(
-				req.getContextPath()
-				+ "/scoremanager/main/AdminTop.action");
+        } else {
 
-		} else {
+            res.sendRedirect(
+                    req.getContextPath()
+                    + "/scoremanager/main/Top.action");
+        }
+    }
 
-			res.sendRedirect(
-				req.getContextPath()
-				+ "/scoremanager/main/Top.action");
-		}
-	}
+    private boolean checkInput(
+            String name,
+            String password,
+            List<String> errors) {
 
-	/**
-	 * 入力チェック
-	 */
-	private boolean checkInput(
-			String name,
-			String password,
-			List<String> errors) {
+        if (name == null
+                || name.trim().isEmpty()) {
 
-		if (name == null
-				|| name.trim().isEmpty()) {
+            errors.add(
+                    "ユーザー名を入力してください");
+        }
 
-			errors.add(
-				"ユーザー名を入力してください");
-		}
+        if (password == null
+                || password.isEmpty()) {
 
-		if (password == null
-				|| password.isEmpty()) {
+            errors.add(
+                    "パスワードを入力してください");
+        }
 
-			errors.add(
-				"パスワードを入力してください");
-		}
+        return errors.isEmpty();
+    }
 
-		return errors.isEmpty();
-	}
+    private void backToLogin(
+            HttpServletRequest req,
+            HttpServletResponse res,
+            String name,
+            List<String> errors)
+            throws Exception {
 
-	/**
-	 * ログイン画面へ戻る
-	 */
-	private void backToLogin(
-			HttpServletRequest req,
-			HttpServletResponse res,
-			String name,
-			List<String> errors)
-			throws Exception {
+        req.setAttribute(
+                "errors",
+                errors);
 
-		req.setAttribute(
-				"errors",
-				errors);
+        req.setAttribute(
+                "name",
+                name);
 
-		req.setAttribute(
-				"name",
-				name);
-
-		req.getRequestDispatcher(
-				"/scoremanager/login.jsp")
-				.forward(req, res);
-	}
+        req.getRequestDispatcher(
+                "/scoremanager/login.jsp")
+                .forward(req, res);
+    }
 }
