@@ -5,6 +5,7 @@
 <%@ taglib prefix="fn" uri="jakarta.tags.functions"%>
 
 <% if (session != null) {session.invalidate();}session = request.getSession(true);%>
+
 <c:import url="/common/base.jsp">
 	<c:param name="title">
 		認知症予防トレーニングアプリ
