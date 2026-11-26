@@ -10,6 +10,6 @@ public class NonenreiStartAction extends Action {
     public void execute(HttpServletRequest req,
             HttpServletResponse res) throws Exception {
 
-        req.getRequestDispatcher("NonenreiStart.jsp").forward(req, res);
+        req.getRequestDispatcher("nonenreiStart.jsp").forward(req, res);
     }
 }
